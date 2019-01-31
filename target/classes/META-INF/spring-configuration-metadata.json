@@ -1,0 +1,28 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty",
+      "name": "algamoney",
+      "type": "com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty"
+    },
+    {
+      "sourceType": "com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty",
+      "name": "algamoney.seguranca",
+      "sourceMethod": "public com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty.Seguranca getSeguranca() ",
+      "type": "com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty$Seguranca"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty",
+      "name": "algamoney.origin-permitida",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty$Seguranca",
+      "name": "algamoney.seguranca.enable-https",
+      "type": "java.lang.Boolean"
+    }
+  ]
+}
