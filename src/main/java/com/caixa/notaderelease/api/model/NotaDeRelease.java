@@ -13,7 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tbl_notaderelease")
@@ -87,6 +89,22 @@ public class NotaDeRelease {
 	@JoinTable(name = "tbl_rel_notaxprocesso", joinColumns = @JoinColumn(name = "codigo_notaderelease")
 	, inverseJoinColumns = @JoinColumn(name = "codigo_processo"))
 	private List<Processo> processos;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "codigo_plataforma")
+	private Plataforma plataforma;
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "codigo_qualidade")
+	private Qualidade qualidade;
+	
+	public Qualidade getQualidade() {
+		return qualidade;
+	}
+
+	public void setQualidade(Qualidade qualidade) {
+		this.qualidade = qualidade;
+	}
 
 	public List<Processo> getProcessos() {
 		return processos;
@@ -255,6 +273,14 @@ public class NotaDeRelease {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	public Plataforma getPlataforma() {
+		return plataforma;
+	}
+
+	public void setPlataforma(Plataforma plataforma) {
+		this.plataforma = plataforma;
 	}
 	
 	
