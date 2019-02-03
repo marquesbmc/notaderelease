@@ -20,15 +20,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbl_analise_nota")
 public class AnaliseNota {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(name = "data_aprovacao")
+	/**@Column(name = "data_aprovacao")
 	private LocalDate dataAprovacao;
 	
 	@Column(name = "nome_aprovador")
-	private String nomeAprovador;
+	private String nomeAprovador;*/
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name = "tbl_rel_analisenotaxhistoricoanalise", joinColumns = @JoinColumn(name = "codigo_analisenota")
