@@ -6,21 +6,25 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.caixa.notaderelease.api.model.Ticket;
 
-public interface TicketRepository extends JpaRepository<Ticket, String>{
+public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	
-	Page<Ticket> findByUserCodigoOrderByDataAberturaDesc(Pageable pages,String userCodigo);
+	Page<Ticket> findByUserCodigoOrderByDataAberturaDesc(Pageable pages,Long userCodigo);
 	
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingOrderByDataAberturaDesc(
 			String numeroNotaRelease,String status,Pageable pages);
 	
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingAndUserCodigoOrderByDataAberturaDesc(
-			String numeroNotaRelease,String status,String userCodigo, Pageable pages);
+			String numeroNotaRelease,String status,Long userCodigo, Pageable pages);
 	
-	Page<Ticket> findByCodigo(Integer codigo,Pageable pages);
+	Page<Ticket> findByNumeroNotaRelease(String numeroNotaRelease,Pageable pages);
 	
 	
-	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingAndAssignedUserOrderByDataAberturaDesc(
-			String numeroNotaRelease,String status,String assignedUser, Pageable pages);
+	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingAndAssignedUserCodigoOrderByDataAberturaDesc(
+			String numeroNotaRelease,String status,Long assignedUserCodigo, Pageable pages);
+
+	void delete(Long codigo);
+
 	
+
 
 }

@@ -12,9 +12,9 @@ public interface UserService {
 	
 	User createOrUpdate(User user);
 	
-	User findByCodigo(String codigo);
+	User findByCodigo(Long codigo);
 	
-	void delete(String codigo);
+	void delete(Long codigo);
 	
 	Page<User> findAll(int page, int count);
 

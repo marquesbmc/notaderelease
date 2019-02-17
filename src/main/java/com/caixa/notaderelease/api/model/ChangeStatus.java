@@ -5,15 +5,19 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.caixa.notaderelease.api.enums.StatusEnum;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tbl_change_status")
@@ -23,20 +27,19 @@ public class ChangeStatus {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "cod_ticket")
 	private Ticket ticket;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "cod_user_change")
-	private User userChange;
-	
+
+	@Column(name = "nome_user_change")
+	private String userChange;
 	
 	@Column(name = "date_change_status")
 	private LocalDate dateChangeStatus;
 	
-	@Column(name = "status")
-	private StatusEnum status;
+	@Column(name = "status_ticket")
+	private String status;
 
 	public Long getCodigo() {
 		return codigo;
@@ -54,11 +57,11 @@ public class ChangeStatus {
 		this.ticket = ticket;
 	}
 
-	public User getUserChange() {
+	public String getUserChange() {
 		return userChange;
 	}
 
-	public void setUserChange(User userChange) {
+	public void setUserChange(String userChange) {
 		this.userChange = userChange;
 	}
 
@@ -70,11 +73,11 @@ public class ChangeStatus {
 		this.dateChangeStatus = dateChangeStatus;
 	}
 
-	public StatusEnum getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusEnum status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -102,7 +105,6 @@ public class ChangeStatus {
 			return false;
 		return true;
 	}
-	
 
-	
 }
+

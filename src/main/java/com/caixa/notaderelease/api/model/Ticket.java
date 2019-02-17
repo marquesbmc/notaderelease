@@ -8,61 +8,59 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-
 import com.caixa.notaderelease.api.enums.StatusEnum;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tbl_ticket")
 public class Ticket {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@NotBlank
-	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "codigo_usuario_cliente")
 	private User user;
 	
-	@NotBlank
 	@Column(name = "data_abertura")
 	private LocalDate dataAbertura;
 	
-	
-	@NotBlank
 	@Column(name = "numero_nr")
-	private String numeroNotaRelease;
+	public String numeroNotaRelease;
 	
-	@NotBlank
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status_notaderelease")
 	private StatusEnum status;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "codigo_usuario_aprovador")
-	private User  assignedUser;
+	private User assignedUser;
 	
 	@Column(name = "descricao")
 	private String descricao;
-		
-	@Transient 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name = "codigo_qualidade")
+	
+	@Transient
 	private List<ChangeStatus> changes;
+
+	public List<ChangeStatus> getChanges() {
+		return changes;
+	}
+
+	public void setChanges(List<ChangeStatus> changes) {
+		this.changes = changes;
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -120,14 +118,6 @@ public class Ticket {
 		this.descricao = descricao;
 	}
 
-	/*public List<ChangeStatus> getChanges() {
-		return changes;
-	}
-
-	public void setChanges(List<ChangeStatus> changes) {
-		this.changes = changes;
-	} */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -152,7 +142,8 @@ public class Ticket {
 			return false;
 		return true;
 	}
+
 	
-	
-	
+
+
 }

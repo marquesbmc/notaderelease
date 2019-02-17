@@ -26,12 +26,10 @@ public class User {
 	@Column(name = "matricula",unique=true) 
 	private String matricula;
 	
-	@NotBlank
 	@Column(name = "nome")
 	private String nome;
 	
 	@NotBlank(message = "Senha necessária.")
-	@Size(min=6)
 	@Column(name = "password")
 	private String password;
 	

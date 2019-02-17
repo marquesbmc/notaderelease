@@ -11,28 +11,34 @@ public interface TicketService {
 	
 	Ticket createOrUpdate(Ticket ticket);
 	
-	Ticket findByCodigo(String codigo);
+	Ticket findByCodigo(Long codigo);
 	
-	void delete(String codigo);;
+	void delete(Long codigo);
 	
 	Page<Ticket> listTicket(int page, int count);
 	
+	
+	//obs
 	ChangeStatus createChangeStatus(ChangeStatus changeStatus);
 	
-	Iterable<ChangeStatus> listChangeStatus(String ticketId);
+	Iterable<ChangeStatus> listChangeStatus(Long codigo);
 	
-	Page<Ticket> findByCurrentUser(int page, int count, String codigo);
+	
+	//pesquisar somente os tickekts do dele (ciente)
+	Page<Ticket> findByCurrentUser(int page, int count, Long userCodigo);
 	
 	Page<Ticket> findByParameters(int page, int count,String numeroNotaRelease,String status);
 	
-	Page<Ticket> findByParametersAndCurrentUser(int page, int count,String numeroNotaRelease,String status,String userCodigo);
+	Page<Ticket> findByParametersAndCurrentUser(int page, int count,String numeroNotaRelease,String status,Long userCodigo);
 	
-	Page<Ticket> findByCodigo(int page, int count,Integer codigo);
+	
+	//pesquisar pelo numero da nota de release title = numero.
+	Page<Ticket> findByNumber(int page, int count,String numeroNotaRelease);
 	
 	Iterable<Ticket> findAll();
 	
-	public Page<Ticket> findByParametersAndAssignedUser(int page, int count,String numeroNotaRelease,String status,String assignedUserCodigo);
 	
-	
+	//pesquisar os titulos atribuido a ele o tecnico
+	public Page<Ticket> findByParametersAndAssignedUser(int page, int count,String numeroNotaRelease,String status,Long assignedUserCodigo);
 
 }

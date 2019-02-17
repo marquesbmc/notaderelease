@@ -11,7 +11,8 @@ public enum StatusEnum {
 	Analise,
 	Aprovado,
 	Pendenciado,
-	Designado;
+	Designado, 
+	Closed;
 	
 	
 	public static StatusEnum getStatus(String status) {
@@ -25,7 +26,8 @@ public enum StatusEnum {
 			case "Analise" : return Analise;
 			case "Aprovado" : return Aprovado;
 			case "Pendenciado" : return Pendenciado;
-			case "Designado" : return Designado;			
+			case "Designado" : return Designado;	
+			case "Closed" : return Closed;	
 		default : return New;
 		
 		

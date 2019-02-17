@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: notaderelase-api
 Implementation-Version: 0.0.2-ALPHA
-Built-By: belive
+Built-By: Note
 Implementation-Vendor-Id: com.caixa.notaderelease-api
 Build-Jdk: 1.8.0_181
 Implementation-URL: http://projects.spring.io/spring-boot/notadereleas
