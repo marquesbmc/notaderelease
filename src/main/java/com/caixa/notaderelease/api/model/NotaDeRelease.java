@@ -74,27 +74,33 @@ public class NotaDeRelease {
 	@Column(name = "problemas_conhecidos_notaderelease")
 	private String problemasConhecidos;
 	
-
+	//ja foi
 	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name = "tbl_rel_notaxcliente", joinColumns = @JoinColumn(name = "codigo_notaderelease")
 		, inverseJoinColumns = @JoinColumn(name = "codigo_cliente"))
 	private List<Cliente> clientes;
 	
+	
+	//ja foi
 	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name = "tbl_rel_notaxmodulo", joinColumns = @JoinColumn(name = "codigo_notaderelease")
 	, inverseJoinColumns = @JoinColumn(name = "codigo_modulo"))
 	private List<Modulo> modulos;
 	
-	
+	//ja foi
 	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name = "tbl_rel_notaxprocesso", joinColumns = @JoinColumn(name = "codigo_notaderelease")
 	, inverseJoinColumns = @JoinColumn(name = "codigo_processo"))
 	private List<Processo> processos;
 	
+	
+	//ja foi
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "codigo_plataforma")
 	private Plataforma plataforma;
-
+	
+	
+	//ja foi
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "codigo_qualidade")
 	private Qualidade qualidade;

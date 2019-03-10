@@ -50,7 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS,"/api/user/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/user/**").permitAll()
+                //.antMatchers("/api/user/**").permitAll()
+                
                 .antMatchers(
                         HttpMethod.GET,
                         "/",
@@ -60,9 +63,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
+          
                 .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated();
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
         httpSecurity.headers().cacheControl();
-    }
+	}
 }

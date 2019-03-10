@@ -36,6 +36,12 @@ public class Ticket {
 	@Column(name = "data_abertura")
 	private LocalDate dataAbertura;
 	
+	// no futuro a data de instalacao soh podera ser preenchida apos aprovado e fechado o chamado.
+	@Column(name = "data_instalacao")
+	private LocalDate dataInstalacao;
+
+	
+
 	@Column(name = "numero_nr")
 	public String numeroNotaRelease;
 	
@@ -53,7 +59,24 @@ public class Ticket {
 	
 	@Transient
 	private List<ChangeStatus> changes;
+	
+	public LocalDate getDataInstalacao() {
+		return dataInstalacao;
+	}
 
+	public void setDataInstalacao(LocalDate dataInstalacao) {
+		this.dataInstalacao = dataInstalacao;
+	}
+
+	public String getNumeroNotaRelease() {
+		return numeroNotaRelease;
+	}
+
+	public void setNumeroNotaRelease(String numeroNotaRelease) {
+		this.numeroNotaRelease = numeroNotaRelease;
+	}
+	
+	
 	public List<ChangeStatus> getChanges() {
 		return changes;
 	}
@@ -86,13 +109,7 @@ public class Ticket {
 		this.dataAbertura = dataAbertura;
 	}
 
-	public String getNumeroNotaRelease() {
-		return numeroNotaRelease;
-	}
-
-	public void setNumeroNotaRelease(String numeroNotaRelease) {
-		this.numeroNotaRelease = numeroNotaRelease;
-	}
+	
 
 	public StatusEnum getStatus() {
 		return status;

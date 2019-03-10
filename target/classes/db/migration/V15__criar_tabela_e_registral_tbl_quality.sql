@@ -19,3 +19,5 @@ INSERT INTO tbl_quality ( data_captura, conceito, tot_testes_unitarios, tot_test
 INSERT INTO tbl_quality ( data_captura, conceito, tot_testes_unitarios, tot_testes_funcionais, tot_testes_falhas, tot_testes_erros, tot_prob_info, tot_prob_minor, tot_prob_major, tot_prob_blocker, tot_prob_critical, rel_testes ) values ('2018-11-01', 'B', '12', '1','3', '33','12','33','1','0','0','0');
 
 INSERT INTO tbl_quality ( data_captura, conceito, tot_testes_unitarios, tot_testes_funcionais, tot_testes_falhas, tot_testes_erros, tot_prob_info, tot_prob_minor, tot_prob_major, tot_prob_blocker, tot_prob_critical, rel_testes ) values ('2019-11-01', 'C', '12', '1','3', '33','12','33','1','0','0','0');
+
+

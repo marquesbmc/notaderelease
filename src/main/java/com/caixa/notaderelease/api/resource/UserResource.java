@@ -54,7 +54,15 @@ public class UserResource {
 			response.getErrors().add("Matricula registrada!");
 			return ResponseEntity.badRequest().body(response);
 		} catch (Exception e) {
-			response.getErrors().add(e.getMessage());
+			
+			
+			if ( e.getCause().toString().equals("org.hibernate.exception.ConstraintViolationException: could not execute statement") ) {
+				response.getErrors().add("Erro! Matrícula cadastrada anteriormente.");
+				} else {
+				response.getErrors().add(e.getMessage());
+				}
+				
+				
 			return ResponseEntity.badRequest().body(response);
 		}
 		return ResponseEntity.ok(response);
@@ -97,7 +105,51 @@ public class UserResource {
 			result.addError(new ObjectError("User", "Matricula não informada!"));
 			return;
 		}
+		
+		
 	}
+	
+
+	
+	
+	@PutMapping(value = "/{senha}")
+	public ResponseEntity<Response<User>> updatepassword(HttpServletRequest request,@RequestBody User user,  @PathVariable("senha") String senha,
+			BindingResult result) {
+		Response<User> response = new Response<User>();
+	
+		try {
+			validatePassword(user,senha, result);
+			if (result.hasErrors()) {
+				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+				return ResponseEntity.badRequest().body(response);
+			}
+			User userData = (User) userService.findByCodigo(user.getCodigo());
+			
+			user.setProfile(userData.getProfile());
+			
+			user.setPassword(passwordEncoder.encode(senha));
+			User userPersisted = (User) userService.createOrUpdate(user);
+			response.setData(userPersisted);
+		} catch (Exception e) {
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	
+	private void validatePassword(User user, String senha, BindingResult result) {
+		
+		User userData = (User) userService.findByCodigo(user.getCodigo());
+		
+		if(!passwordEncoder.matches(user.getPassword(), userData.getPassword())) {
+			result.addError(new ObjectError("User", "Senha não confere, Alteração cancelada!"));
+			return;
+		}
+	}
+	
+	
+	
 	
 	@GetMapping(value = "{codigo}")
 	@PreAuthorize("hasAnyRole('ADMIN')")

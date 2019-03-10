@@ -21,65 +21,87 @@ import com.caixa.notaderelease.api.enums.AmbienteDeployEnum;
 import com.caixa.notaderelease.api.enums.NomeSistemaEnum;
 import com.caixa.notaderelease.api.enums.TipoDeployEnum;
 
-
-
 @Entity
 @Table(name = "tbl_releasenote")
 public class ReleaseNote {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "nome_sistema")
 	private NomeSistemaEnum nomeSistema;
-	
+
 	@Column(name = "data_deploy")
 	private LocalDate dataDeploy;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_deploy")
 	private TipoDeployEnum tipoDeploy;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ambiente_deploy")
 	private AmbienteDeployEnum ambienteDeploy;
-	
+
 	@Column(name = "esta_aprovado")
 	private Boolean estaAprovado = false;
 
-	//git-tag
+	// git-tag
 	@Column(name = "versao_codigo_fonte")
 	private String versaoCodigoFonte;
-		
-	//nexus - vecbuild
+
+	// nexus - vecbuild
 	@Column(name = "versao_codigo_compilado")
 	private String versaoCodigoCompilado;
-		
-	//modelo banco de dados
+
+	// modelo banco de dados
 	@Column(name = "versao_modelo_banco")
 	private String versaoModeloBanco;
-		
-	//resumo da release
+
+	// resumo da release
 	@Column(name = "escopo_notaderelease")
 	private String escopo;
-		
-	//resumo funcionalidades
+
+	// resumo funcionalidades
 	@Column(name = "funcionalidades_notaderelease")
 	private String funcionalidades;
-				
-	//resumo ploblemas
+
+	// resumo ploblemas
 	@Column(name = "problemas_conhecidos_notaderelease")
 	private String problemasConhecidos;
-	
-	@OneToOne(cascade=CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codigo_quality")
 	private Quality quality;
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "codigo_platform")
+	private Platform platform;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_releasenote")
 	private List<Module> modules;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_releasenote")
+	private List<Team> team;
+
+	public List<Team> getTeam () {
+		return team;
+	}
+
+	public void setTeam (List<Team> team) {
+		this.team = team;
+	}
+
+	public Platform getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
+	}
 
 	public List<Module> getModules() {
 		return modules;
@@ -217,7 +239,5 @@ public class ReleaseNote {
 			return false;
 		return true;
 	}
-	
-	
 
 }

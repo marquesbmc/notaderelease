@@ -13,9 +13,10 @@ CREATE TABLE tbl_releasenote (
 	funcionalidades_notaderelease TEXT,
 	problemas_conhecidos_notaderelease TEXT,
     codigo_quality BIGINT(20),
+    codigo_platform BIGINT(20),
     
-    FOREIGN KEY (codigo_quality) REFERENCES tbl_quality(codigo)
-
+    FOREIGN KEY (codigo_quality) REFERENCES tbl_quality(codigo),
+	FOREIGN KEY (codigo_platform) REFERENCES tbl_platform(codigo)
 	) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
@@ -31,9 +32,10 @@ INSERT INTO  notadereleaseapi.tbl_releasenote(
 	escopo_notaderelease,
 	funcionalidades_notaderelease,
 	problemas_conhecidos_notaderelease,
-    codigo_quality) 
+    codigo_quality,
+    codigo_platform) 
 values 
-	('SIRFG', '2008-02-23', 'Normal', 'Desenvolvimento', false, 'c201901011212', 'TAG', 'ver10.45','Escopo da release' ,'Funcionalidades', 'Problemas',1);
+	('SIRFG', '2008-02-23', 'Normal', 'Desenvolvimento', false, 'c201901011212', 'TAG', 'ver10.45','Escopo da release' ,'Funcionalidades', 'Problemas',1, 2);
 
 INSERT INTO  notadereleaseapi.tbl_releasenote(
 	nome_sistema,
@@ -47,9 +49,10 @@ INSERT INTO  notadereleaseapi.tbl_releasenote(
 	escopo_notaderelease,
 	funcionalidades_notaderelease,
 	problemas_conhecidos_notaderelease,
-    codigo_quality)  
+    codigo_quality,
+    codigo_platform)  
 values 
-	('SIFUG', '2008-02-23', 'Hotdeploy', 'Homologação', true, 'c201901011212', 'TAG', 'ver10.45','Escopo da release' ,'Funcionalidades', 'Problemas',2);
+	('SIFUG', '2008-02-23', 'Hotdeploy', 'Homologação', true, 'c201901011212', 'TAG', 'ver10.45','Escopo da release' ,'Funcionalidades', 'Problemas',2, 1);
 	
 INSERT INTO  notadereleaseapi.tbl_releasenote(
 	nome_sistema,
@@ -63,7 +66,8 @@ INSERT INTO  notadereleaseapi.tbl_releasenote(
 	escopo_notaderelease,
 	funcionalidades_notaderelease,
 	problemas_conhecidos_notaderelease,
-    codigo_quality)  
+    codigo_quality,
+    codigo_platform)  
 values 
-	('SIRMO', '2008-02-23', 'Normal', 'Produção', false, 'c201901011212', 'TAG', 'ver10.45','Escopo da release' ,'Funcionalidades', 'Problemas',3);
+	('SIRMO', '2008-02-23', 'Normal', 'Produção', false, 'c201901011212', 'TAG', 'ver10.45','Escopo da release' ,'Funcionalidades', 'Problemas',3, 3);
     

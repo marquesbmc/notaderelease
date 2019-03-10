@@ -7,12 +7,12 @@ public enum StatusEnum {
 	Resolved,
 	Approved,
 	Disapproved,
-	Close,
+	Closed,
 	Analise,
 	Aprovado,
 	Pendenciado,
 	Designado, 
-	Closed;
+	Installed;
 	
 	
 	public static StatusEnum getStatus(String status) {
@@ -22,12 +22,12 @@ public enum StatusEnum {
 			case "Resolved" : return Resolved;
 			case "Approved" : return Approved;
 			case "Disapproved" : return Disapproved;
-			case "Close" : return Close;
+			case "Closed" : return Closed;
 			case "Analise" : return Analise;
 			case "Aprovado" : return Aprovado;
 			case "Pendenciado" : return Pendenciado;
 			case "Designado" : return Designado;	
-			case "Closed" : return Closed;	
+			case "Installed" : return Installed;	
 		default : return New;
 		
 		
