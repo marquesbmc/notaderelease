@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import com.caixa.notaderelease.api.enums.StatusEnum;
 import com.caixa.notaderelease.api.model.ChangeStatus;
 import com.caixa.notaderelease.api.model.Ticket;
 import com.caixa.notaderelease.api.repository.ChangeStatusRepository;
@@ -63,18 +64,19 @@ public class TicketServiceImpl implements TicketService{
 	}
 
 	@Override
-	public Page<Ticket> findByParameters(int page, int count, String numeroNotaRelease, String status) {
+	public Page<Ticket> findByParameters(int page, int count, String numeroNotaRelease, StatusEnum status) {
 		Pageable pages = new PageRequest(page, count);
 		return this.ticketRepository.
-				findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingOrderByDataAberturaDesc(numeroNotaRelease, status, pages);
+				findByNumeroNotaReleaseIgnoreCaseContainingAndStatusOrderByDataAberturaDesc(numeroNotaRelease, status, pages);
 	}
 
+	
+	
 	@Override
-	public Page<Ticket> findByParametersAndCurrentUser(int page, int count, String numeroNotaRelease, String status,
-			Long userCodigo) {
+	public Page<Ticket> findByParametersAndCurrentUser(int page, int count,StatusEnum status,Long userCodigo) {
 		Pageable pages = new PageRequest(page, count);
-		return this.ticketRepository.
-				findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingAndUserCodigoOrderByDataAberturaDesc(numeroNotaRelease, status, userCodigo, pages);
+		return this.ticketRepository.findByStatusAndUserCodigoOrderByDataAberturaDesc(status, userCodigo, pages );
+		
 	}
 
 	@Override
@@ -89,10 +91,10 @@ public class TicketServiceImpl implements TicketService{
 	}
 
 	@Override
-	public Page<Ticket> findByParametersAndAssignedUser(int page, int count, String numeroNotaRelease, String status,
+	public Page<Ticket> findByParametersAndAssignedUser(int page, int count, String numeroNotaRelease, StatusEnum status,
 			Long assignedUserCodigo) {
 		Pageable pages = new PageRequest(page, count);
-		return this.ticketRepository.findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingAndAssignedUserCodigoOrderByDataAberturaDesc(numeroNotaRelease, status, assignedUserCodigo, pages);
+		return this.ticketRepository.findByNumeroNotaReleaseIgnoreCaseContainingAndStatusAndAssignedUserCodigoOrderByDataAberturaDesc(numeroNotaRelease, status, assignedUserCodigo, pages);
 	}
 
 }

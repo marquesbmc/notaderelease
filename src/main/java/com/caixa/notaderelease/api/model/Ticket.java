@@ -40,7 +40,6 @@ public class Ticket {
 	@Column(name = "data_instalacao")
 	private LocalDate dataInstalacao;
 
-	
 
 	@Column(name = "numero_nr")
 	public String numeroNotaRelease;

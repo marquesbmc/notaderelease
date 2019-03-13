@@ -66,6 +66,7 @@ public class TicketResource {
 			ticket.setStatus(StatusEnum.getStatus("New"));
 			ticket.setUser(userFromRequest(request));
 			ticket.setDataAbertura(LocalDate.now() );
+			
 			Ticket ticketPersisted = (Ticket) ticketService.createOrUpdate(ticket);
 			response.setData(ticketPersisted);
 		} catch (Exception e) {
@@ -197,7 +198,7 @@ public class TicketResource {
     }
 	
 	//VERIFICAR
-	@GetMapping(value = "{page}/{count}/{numeronotarelease}/{status}/{assigned}")
+	@GetMapping(value = "{page}/{count}/{numeroNotaRelease}/{status}/{assigned}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
     public  ResponseEntity<Response<Page<Ticket>>> findByParams(HttpServletRequest request, 
     		 							@PathVariable("page") int page, 
@@ -207,22 +208,26 @@ public class TicketResource {
     		 							@PathVariable("assigned") boolean assigned) {
 		
 		numeroNotaRelease = numeroNotaRelease.equals("uninformed") ? "" : numeroNotaRelease;
-		status = status.equals("uninformed") ? "" : status;
-		
+		status = status.equals("uninformed") ?  "" : status;
+		StatusEnum statusEnum = StatusEnum.getStatus(status);
 		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
 		Page<Ticket> tickets = null;
-		if(numeroNotaRelease != null) {
+		if(!numeroNotaRelease.isEmpty()) {
 			tickets = ticketService.findByNumber(page, count, numeroNotaRelease);
 			} else {
 				User userRequest = userFromRequest(request);
 				if(userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
 					if(assigned) {
-						tickets = ticketService.findByParametersAndAssignedUser(page, count, numeroNotaRelease, status, userRequest.getCodigo());
+						
+						
+						tickets = ticketService.findByParametersAndAssignedUser(page, count, numeroNotaRelease, statusEnum, userRequest.getCodigo());
 					} else {
-						tickets = ticketService.findByParameters(page, count, numeroNotaRelease, status);
+						
+						tickets = ticketService.findByParameters(page, count, numeroNotaRelease, statusEnum);
 					}
+					
 				} else if(userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
-					tickets = ticketService.findByParametersAndCurrentUser(page, count, numeroNotaRelease, status, userRequest.getCodigo());
+					tickets = ticketService.findByParametersAndCurrentUser(page, count, statusEnum, userRequest.getCodigo());
 				}
 			}
 		response.setData(tickets);

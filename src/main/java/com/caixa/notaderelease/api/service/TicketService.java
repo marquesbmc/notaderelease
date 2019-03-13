@@ -3,6 +3,7 @@ package com.caixa.notaderelease.api.service;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import com.caixa.notaderelease.api.enums.StatusEnum;
 import com.caixa.notaderelease.api.model.ChangeStatus;
 import com.caixa.notaderelease.api.model.Ticket;
 
@@ -27,9 +28,9 @@ public interface TicketService {
 	//pesquisar somente os tickekts do dele (ciente)
 	Page<Ticket> findByCurrentUser(int page, int count, Long userCodigo);
 	
-	Page<Ticket> findByParameters(int page, int count,String numeroNotaRelease,String status);
+	Page<Ticket> findByParameters(int page, int count,String numeroNotaRelease,StatusEnum status);
 	
-	Page<Ticket> findByParametersAndCurrentUser(int page, int count,String numeroNotaRelease,String status,Long userCodigo);
+	Page<Ticket> findByParametersAndCurrentUser(int page, int count,StatusEnum status,Long userCodigo);
 	
 	
 	//pesquisar pelo numero da nota de release title = numero.
@@ -39,6 +40,6 @@ public interface TicketService {
 	
 	
 	//pesquisar os titulos atribuido a ele o tecnico
-	public Page<Ticket> findByParametersAndAssignedUser(int page, int count,String numeroNotaRelease,String status,Long assignedUserCodigo);
+	public Page<Ticket> findByParametersAndAssignedUser(int page, int count,String numeroNotaRelease,StatusEnum status,Long assignedUserCodigo);
 
 }

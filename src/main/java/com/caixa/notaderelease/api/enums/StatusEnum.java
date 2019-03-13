@@ -13,6 +13,7 @@ public enum StatusEnum {
 	Pendenciado,
 	Designado, 
 	Installed;
+
 	
 	
 	public static StatusEnum getStatus(String status) {

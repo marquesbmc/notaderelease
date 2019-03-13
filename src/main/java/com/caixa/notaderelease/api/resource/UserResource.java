@@ -104,12 +104,9 @@ public class UserResource {
 		if (user.getMatricula() == null) {
 			result.addError(new ObjectError("User", "Matricula não informada!"));
 			return;
-		}
-		
+		}	
 		
 	}
-	
-
 	
 	
 	@PutMapping(value = "/{senha}")
