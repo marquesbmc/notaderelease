@@ -15,44 +15,4 @@ CREATE TABLE tbl_ticket (
 
 	) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (1 , '2008-11-01' , null , 123, 'New', 2,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (2 , '2008-09-10' , null , 22, 'New', 3,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Resolved', 1,'Qualquer');
-    
-    INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (1 , '2008-11-01' , null , 123, 'Approved', 2,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (2 , '2008-09-10' , null , 22, 'Disapproved', 3,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Closed', 1,'Qualquer');
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Resolved', 1,'Qualquer');
-    
-    INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (1 , '2008-11-01' , null , 123, 'Approved', 2,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (2 , '2008-09-10' , null , 22, 'Disapproved', 3,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Closed', 1,'Qualquer');
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (1 , '2008-11-01' , null , 123, 'New', 2,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (2 , '2008-09-10' , null , 22, 'Assigned', 3,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Resolved', 1,'Qualquer');
-    
-    INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (1 , '2008-11-01' , null , 123, 'Approved', 2,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (2 , '2008-09-10' , null , 22, 'Disapproved', 3,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Closed', 1,'Qualquer');
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Resolved', 1,'Qualquer');
-    
-    INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (1 , '2008-11-01' , null , 123, 'Approved', 2,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (2 , '2008-09-10' , null , 22, 'Disapproved', 3,'Qualquer coisa' );
-
-	INSERT INTO tbl_ticket (codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr, status_notaderelease, codigo_usuario_aprovador, descricao ) values (3, '2008-02-23', '2009-03-01',120, 'Closed', 1,'Qualquer');
-
 	

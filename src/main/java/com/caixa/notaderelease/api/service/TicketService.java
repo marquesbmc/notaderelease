@@ -42,4 +42,6 @@ public interface TicketService {
 	//pesquisar os titulos atribuido a ele o tecnico
 	public Page<Ticket> findByParametersAndAssignedUser(int page, int count,String numeroNotaRelease,StatusEnum status,Long assignedUserCodigo);
 
+	public Page<Ticket> findByNotaReleaseAndAssignedUser(int page, int count, String numeroNotaRelease, Long codigo);
+
 }

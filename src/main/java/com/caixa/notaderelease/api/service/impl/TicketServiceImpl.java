@@ -96,5 +96,14 @@ public class TicketServiceImpl implements TicketService{
 		Pageable pages = new PageRequest(page, count);
 		return this.ticketRepository.findByNumeroNotaReleaseIgnoreCaseContainingAndStatusAndAssignedUserCodigoOrderByDataAberturaDesc(numeroNotaRelease, status, assignedUserCodigo, pages);
 	}
+	
+	@Override
+	public Page<Ticket> findByNotaReleaseAndAssignedUser(int page, int count, String numeroNotaRelease, Long assignedUserCodigo){
+		Pageable pages = new PageRequest(page, count);
+		return this.ticketRepository.findByNumeroNotaReleaseIgnoreCaseContainingAndAssignedUserCodigoOrderByDataAberturaDesc(numeroNotaRelease, assignedUserCodigo, pages);
+	}
 
+	
+	
+	
 }

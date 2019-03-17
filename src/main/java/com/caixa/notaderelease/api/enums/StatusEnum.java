@@ -15,6 +15,8 @@ public enum StatusEnum {
 	Installed;
 
 	
+
+	
 	
 	public static StatusEnum getStatus(String status) {
 		switch(status) {
@@ -29,7 +31,7 @@ public enum StatusEnum {
 			case "Pendenciado" : return Pendenciado;
 			case "Designado" : return Designado;	
 			case "Installed" : return Installed;	
-		default : return New;
+		default : return null;
 		
 		
 		

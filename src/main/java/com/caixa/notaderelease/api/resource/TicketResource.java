@@ -94,7 +94,7 @@ public class TicketResource {
 	}
 
 	@PutMapping()
-	@PreAuthorize("hasAnyRole('CUSTOMER')")
+	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
 	public ResponseEntity<Response<Ticket>> update(HttpServletRequest request, @RequestBody Ticket ticket,
 			BindingResult result) {
 		Response<Ticket> response = new Response<Ticket>();
@@ -218,9 +218,14 @@ public class TicketResource {
 				User userRequest = userFromRequest(request);
 				if(userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
 					if(assigned) {
+						if (statusEnum != null ) {
+							tickets = ticketService.findByParametersAndAssignedUser(page, count, numeroNotaRelease, statusEnum, userRequest.getCodigo());
+							
+						} else {
+							tickets = ticketService.findByNotaReleaseAndAssignedUser(page, count, numeroNotaRelease, userRequest.getCodigo());
+						}
 						
 						
-						tickets = ticketService.findByParametersAndAssignedUser(page, count, numeroNotaRelease, statusEnum, userRequest.getCodigo());
 					} else {
 						
 						tickets = ticketService.findByParameters(page, count, numeroNotaRelease, statusEnum);

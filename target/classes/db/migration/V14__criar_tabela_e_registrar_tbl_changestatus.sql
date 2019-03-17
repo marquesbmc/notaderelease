@@ -16,6 +16,3 @@ CREATE TABLE tbl_change_status (
 
 	) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
-INSERT INTO  notadereleaseapi.tbl_change_status (cod_ticket, nome_user_change, date_change_status, status_ticket ) values (2, 'Bruno', '2008-02-23' ,'New');
-INSERT INTO  notadereleaseapi.tbl_change_status (cod_ticket, nome_user_change, date_change_status, status_ticket ) values (3, 'Bruno', '2008-03-01' ,'Resolved');
-INSERT INTO  notadereleaseapi.tbl_change_status (cod_ticket, nome_user_change, date_change_status, status_ticket ) values (1, 'Bruno', '2008-05-31' ,'Approved');

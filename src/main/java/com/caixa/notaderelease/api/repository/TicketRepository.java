@@ -14,6 +14,8 @@ public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusOrderByDataAberturaDesc(
 			String numeroNotaRelease,StatusEnum status,Pageable pages);
 	
+	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndAssignedUserCodigoOrderByDataAberturaDesc(String numeroNotaRelease, Long userCodigo,Pageable pages);
+	
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusIgnoreCaseContainingAndUserCodigoOrderByDataAberturaDesc(
 			String numeroNotaRelease,String status,Long userCodigo, Pageable pages);
 	
@@ -27,7 +29,10 @@ public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusAndAssignedUserCodigoOrderByDataAberturaDesc(
 			String numeroNotaRelease,StatusEnum status,Long assignedUserCodigo, Pageable pages);
-
+	
+	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusContainingAndAssignedUserCodigoOrderByDataAberturaDesc(
+			String numeroNotaRelease,StatusEnum status,Long assignedUserCodigo, Pageable pages);
+	
 	void delete(Long codigo);
 
 	
