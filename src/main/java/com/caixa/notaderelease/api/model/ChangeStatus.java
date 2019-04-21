@@ -1,6 +1,7 @@
 package com.caixa.notaderelease.api.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,10 +37,13 @@ public class ChangeStatus {
 	private String userChange;
 	
 	@Column(name = "date_change_status")
-	private LocalDate dateChangeStatus;
+	private LocalDateTime  dateChangeStatus;
 	
 	@Column(name = "status_ticket")
 	private String status;
+	
+	@Column(name = "informacao")
+	private String info;
 
 	public Long getCodigo() {
 		return codigo;
@@ -65,13 +69,7 @@ public class ChangeStatus {
 		this.userChange = userChange;
 	}
 
-	public LocalDate getDateChangeStatus() {
-		return dateChangeStatus;
-	}
-
-	public void setDateChangeStatus(LocalDate dateChangeStatus) {
-		this.dateChangeStatus = dateChangeStatus;
-	}
+	
 
 	public String getStatus() {
 		return status;
@@ -79,6 +77,24 @@ public class ChangeStatus {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	
+
+	public LocalDateTime getDateChangeStatus() {
+		return dateChangeStatus;
+	}
+
+	public void setDateChangeStatus(LocalDateTime dateChangeStatus) {
+		this.dateChangeStatus = dateChangeStatus;
 	}
 
 	@Override

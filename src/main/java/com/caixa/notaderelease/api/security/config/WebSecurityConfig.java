@@ -51,20 +51,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/api/user/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/user/**").permitAll()                               
+                .antMatchers(HttpMethod.POST,"/api/user/**").permitAll()       
+                
                 .antMatchers(HttpMethod.OPTIONS,"/api/ticket/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/api/ticket/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/ticket/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/ticket/**").permitAll()      
+                .antMatchers(HttpMethod.GET,"/api/ticket/**").permitAll()                  
                 .antMatchers(HttpMethod.DELETE,"/api/ticket/**").permitAll() 
+                
                 .antMatchers(HttpMethod.OPTIONS,"/ticket-list/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/ticket-list/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/ticket-list/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/ticket-list/**").permitAll()                           
+                .antMatchers(HttpMethod.GET,"/ticket-list/**").permitAll()    
+                                
                 .antMatchers(HttpMethod.OPTIONS,"/ticket-detail/**").permitAll()
+                .antMatchers(HttpMethod.PUT,"/ticket-detail/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/ticket-detail/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/ticket-detail/**").permitAll()
-                .antMatchers(HttpMethod.PUT,"/ticket-detail/**").permitAll()
+                
                 //.antMatchers("/api/user/**").permitAll()
                 .antMatchers(
                         HttpMethod.GET,

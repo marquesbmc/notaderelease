@@ -2,11 +2,12 @@
 CREATE TABLE tbl_ticket (
 	codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	codigo_usuario_cliente BIGINT(20),
-	data_abertura DATE,	
-    data_instalacao DATE,	
+	data_abertura DATETIME,	
+    data_instalacao DATETIME ,	
 	numero_nr BIGINT(20),
-	status_notaderelease VARCHAR(30),
+	status VARCHAR(30),
 	codigo_usuario_aprovador BIGINT(20),
+	info TEXT,
 	descricao TEXT,
     
     

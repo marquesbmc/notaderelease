@@ -1,6 +1,7 @@
 package com.caixa.notaderelease.api.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.caixa.notaderelease.api.enums.StatusEnum;
+import com.caixa.notaderelease.api.enums.StatusTicketEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -34,19 +36,24 @@ public class Ticket {
 	private User user;
 	
 	@Column(name = "data_abertura")
-	private LocalDate dataAbertura;
+	private LocalDateTime  dataAbertura;
 	
 	// no futuro a data de instalacao soh podera ser preenchida apos aprovado e fechado o chamado.
 	@Column(name = "data_instalacao")
-	private LocalDate dataInstalacao;
+	private LocalDateTime  dataInstalacao;
 
 
 	@Column(name = "numero_nr")
 	public String numeroNotaRelease;
 	
-	@Enumerated(EnumType.STRING)
+	/*@Enumerated(EnumType.STRING)
 	@Column(name = "status_notaderelease")
-	private StatusEnum status;
+	private StatusEnum status;*/
+	
+	
+	@Column(name = "status")
+	private String status;
+	
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
@@ -56,16 +63,13 @@ public class Ticket {
 	@Column(name = "descricao")
 	private String descricao;
 	
+	@Column(name = "info")
+	private String info;
+	
 	@Transient
 	private List<ChangeStatus> changes;
 	
-	public LocalDate getDataInstalacao() {
-		return dataInstalacao;
-	}
 
-	public void setDataInstalacao(LocalDate dataInstalacao) {
-		this.dataInstalacao = dataInstalacao;
-	}
 
 	public String getNumeroNotaRelease() {
 		return numeroNotaRelease;
@@ -100,23 +104,17 @@ public class Ticket {
 		this.user = user;
 	}
 
-	public LocalDate getDataAbertura() {
-		return dataAbertura;
-	}
-
-	public void setDataAbertura(LocalDate dataAbertura) {
-		this.dataAbertura = dataAbertura;
-	}
+	
 
 	
 
-	public StatusEnum getStatus() {
+	/*public StatusEnum getStatus() {
 		return status;
 	}
 
 	public void setStatus(StatusEnum status) {
 		this.status = status;
-	}
+	}*/
 
 	public User getAssignedUser() {
 		return assignedUser;
@@ -132,6 +130,38 @@ public class Ticket {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getDataAbertura() {
+		return dataAbertura;
+	}
+
+	public void setDataAbertura(LocalDateTime dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public LocalDateTime getDataInstalacao() {
+		return dataInstalacao;
+	}
+
+	public void setDataInstalacao(LocalDateTime dataInstalacao) {
+		this.dataInstalacao = dataInstalacao;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 	@Override
