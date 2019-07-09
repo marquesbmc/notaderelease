@@ -17,38 +17,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caixa.notaderelease.api.model.ReleaseNote;
+import com.caixa.notaderelease.api.model.ReleaseNoteOld;
 import com.caixa.notaderelease.api.model.Ticket;
 import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
-import com.caixa.notaderelease.api.service.ReleaseNoteService;
+import com.caixa.notaderelease.api.service.ReleaseNoteOldService;
 
 @RestController
-@RequestMapping("/api/releasenote")
+@RequestMapping("/api/releasesnotess")
 @CrossOrigin(origins = "*")
-public class ReleaseNotesResource {
+public class ReleaseNotesOldResource {
 
 	private static final Boolean True = true;
 
 	@Autowired
-	private ReleaseNoteService releaseNoteService;
+	private ReleaseNoteOldService releaseNoteService;
 
 	@Autowired
 	protected JwtTokenUtil jwtTokenUtil;
-
+	
+	//foi
 	@PostMapping()
 	@PreAuthorize("hasAnyRole('CUSTOMER')")
-	public ResponseEntity<Response<ReleaseNote>> create(HttpServletRequest request,
-			@RequestBody ReleaseNote releaseNote, BindingResult result) {
-		Response<ReleaseNote> response = new Response<ReleaseNote>();
+	public ResponseEntity<Response<ReleaseNoteOld>> create(HttpServletRequest request,
+			@RequestBody ReleaseNoteOld releaseNote, BindingResult result) {
+		Response<ReleaseNoteOld> response = new Response<ReleaseNoteOld>();
 		try {
 			validateCreateReleaseNote(releaseNote, result);
 			if (result.hasErrors()) {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
-			ReleaseNote releaseNotePersisted = (ReleaseNote) releaseNoteService.createOrUpdate(releaseNote);
+			ReleaseNoteOld releaseNotePersisted = (ReleaseNoteOld) releaseNoteService.createOrUpdate(releaseNote);
 			response.setData(releaseNotePersisted);
 
 		} catch (Exception e) {
@@ -57,19 +58,20 @@ public class ReleaseNotesResource {
 		}
 		return ResponseEntity.ok(response);
 	}
-
-	private void validateCreateReleaseNote(ReleaseNote releaseNote, BindingResult result) {
+	//foi
+	private void validateCreateReleaseNote(ReleaseNoteOld releaseNote, BindingResult result) {
 		if (releaseNote.getNomeSistema() == null) {
 			result.addError(new ObjectError("Nome do sistema", "Informar sistema da Nota de Release"));
 			return;
 		}
 	}
-
+    
+	//foi
 	@GetMapping(value = "/{codigo}")
-	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
-	public ResponseEntity<Response<ReleaseNote>> findByCodigo(@PathVariable("codigo") Long codigo) {
-		Response<ReleaseNote> response = new Response<ReleaseNote>();
-		ReleaseNote releaseNote = releaseNoteService.findByCodigo(codigo);
+	//@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
+	public ResponseEntity<Response<ReleaseNoteOld>> findByCodigo(@PathVariable("codigo") Long codigo) {
+		Response<ReleaseNoteOld> response = new Response<ReleaseNoteOld>();
+		ReleaseNoteOld releaseNote = releaseNoteService.findByCodigo(codigo);
 		if (releaseNote == null) {
 			response.getErrors().add("Register not found Codigo:" + codigo);
 			return ResponseEntity.badRequest().body(response);
@@ -77,26 +79,29 @@ public class ReleaseNotesResource {
 		response.setData(releaseNote);
 		return ResponseEntity.ok(response);
 	}
-
+	
+	//foi
 	@GetMapping(value = "/{page}/{count}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
-	public ResponseEntity<Response<Page<ReleaseNote>>> findAll(HttpServletRequest request, @PathVariable int page,
+	public ResponseEntity<Response<Page<ReleaseNoteOld>>> findAll(HttpServletRequest request, @PathVariable int page,
 			@PathVariable int count) {
 
-		Response<Page<ReleaseNote>> response = new Response<Page<ReleaseNote>>();
-		Page<ReleaseNote> releaseNotes = null;
+		Response<Page<ReleaseNoteOld>> response = new Response<Page<ReleaseNoteOld>>();
+		Page<ReleaseNoteOld> releaseNotes = null;
 		releaseNotes = releaseNoteService.findAll(page, count);
 		response.setData(releaseNotes);
 		return ResponseEntity.ok(response);
 	}
 	
+	
+	//foi
 	@PutMapping()
 	@PreAuthorize("hasAnyRole('CUSTOMER')")
-	public ResponseEntity<Response<ReleaseNote>> update(HttpServletRequest request, @RequestBody ReleaseNote releaseNote,
+	public ResponseEntity<Response<ReleaseNoteOld>> update(HttpServletRequest request, @RequestBody ReleaseNoteOld releaseNote,
 			BindingResult result) {
-		Response<ReleaseNote> response = new Response<ReleaseNote>();
+		Response<ReleaseNoteOld> response = new Response<ReleaseNoteOld>();
 		try {
-			ReleaseNote releaseNoteCurrent = releaseNoteService.findByCodigo(releaseNote.getCodigo());
+			ReleaseNoteOld releaseNoteCurrent = releaseNoteService.findByCodigo(releaseNote.getCodigo());
 			validateUpdate(releaseNote, releaseNoteCurrent, result);
 			if (result.hasErrors()) {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
@@ -105,7 +110,7 @@ public class ReleaseNotesResource {
 			/////////////////////// Se esta aprovado nao pode modificar nada -- precisa fazer um metodo para virar true
 			releaseNote.setEstaAprovado(releaseNoteCurrent.getEstaAprovado());
 			
-			ReleaseNote releaseNotePersisted = (ReleaseNote) releaseNoteService.createOrUpdate(releaseNote);
+			ReleaseNoteOld releaseNotePersisted = (ReleaseNoteOld) releaseNoteService.createOrUpdate(releaseNote);
 			response.setData(releaseNotePersisted);
 			
 			
@@ -118,8 +123,10 @@ public class ReleaseNotesResource {
 		}
 		return ResponseEntity.ok(response);
 	}
+
 	
-	private void validateUpdate(ReleaseNote releaseNote, ReleaseNote releaseNoteCurrent,  BindingResult result) {
+	//foi
+	private void validateUpdate(ReleaseNoteOld releaseNote, ReleaseNoteOld releaseNoteCurrent,  BindingResult result) {
 		if (releaseNote.getNomeSistema() == null) {
 			result.addError(new ObjectError("Sistema", "Sistema não informado!"));
 			return;

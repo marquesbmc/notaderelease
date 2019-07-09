@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.caixa.notaderelease.api.enums.StatusEnum;
-import com.caixa.notaderelease.api.enums.StatusTicketEnum;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity

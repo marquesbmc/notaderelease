@@ -23,13 +23,12 @@ import com.caixa.notaderelease.api.enums.TipoDeployEnum;
 
 @Entity
 @Table(name = "tbl_releasenote")
-public class ReleaseNote {
+public class ReleaseNoteOld {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	@Enumerated(EnumType.STRING)
 	@Column(name = "nome_sistema")
 	private NomeSistemaEnum nomeSistema;
 
@@ -231,7 +230,7 @@ public class ReleaseNote {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ReleaseNote other = (ReleaseNote) obj;
+		ReleaseNoteOld other = (ReleaseNoteOld) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

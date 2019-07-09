@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.caixa.notaderelease.api.enums.StatusEnum;
-import com.caixa.notaderelease.api.enums.StatusTicketEnum;
+
 import com.caixa.notaderelease.api.model.ChangeStatus;
 import com.caixa.notaderelease.api.model.Ticket;
 import com.caixa.notaderelease.api.repository.ChangeStatusRepository;

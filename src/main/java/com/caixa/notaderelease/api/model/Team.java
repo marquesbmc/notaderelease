@@ -33,7 +33,7 @@ public class Team {
 	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_releasenote")
-	private ReleaseNote releaseNote;
+	private ReleaseNoteOld releaseNote;
 
 	public Long getCodigo() {
 		return codigo;
@@ -67,11 +67,11 @@ public class Team {
 		this.responsabilidade = responsabilidade;
 	}
 
-	public ReleaseNote getReleaseNote() {
+	public ReleaseNoteOld getReleaseNote() {
 		return releaseNote;
 	}
 
-	public void setReleaseNote(ReleaseNote releaseNote) {
+	public void setReleaseNote(ReleaseNoteOld releaseNote) {
 		this.releaseNote = releaseNote;
 	}
 

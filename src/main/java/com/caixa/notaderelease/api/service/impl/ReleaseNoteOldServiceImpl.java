@@ -6,25 +6,25 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.ReleaseNote;
+import com.caixa.notaderelease.api.model.ReleaseNoteOld;
 import com.caixa.notaderelease.api.model.Ticket;
-import com.caixa.notaderelease.api.repository.ReleaseNoteRepository;
-import com.caixa.notaderelease.api.service.ReleaseNoteService;
+import com.caixa.notaderelease.api.repository.ReleaseNoteOldRepository;
+import com.caixa.notaderelease.api.service.ReleaseNoteOldService;
 
 
 @Component
-public class ReleaseNoteServiceImpl implements ReleaseNoteService{
+public class ReleaseNoteOldServiceImpl implements ReleaseNoteOldService{
 	
 	@Autowired
-	private ReleaseNoteRepository  releaseNoteRepository;
+	private ReleaseNoteOldRepository  releaseNoteRepository;
 
 	@Override
-	public ReleaseNote createOrUpdate(ReleaseNote releasecode) {
+	public ReleaseNoteOld createOrUpdate(ReleaseNoteOld releasecode) {
 		return this.releaseNoteRepository.save(releasecode) ;
 	}
 
 	@Override
-	public ReleaseNote findByCodigo(Long codigo) {
+	public ReleaseNoteOld findByCodigo(Long codigo) {
 		return this.releaseNoteRepository.findOne(codigo);
 	}
 
@@ -34,7 +34,7 @@ public class ReleaseNoteServiceImpl implements ReleaseNoteService{
 	}
 
 	@Override
-	public Page<ReleaseNote> findAll(int page, int count) {
+	public Page<ReleaseNoteOld> findAll(int page, int count) {
 		Pageable pages = new PageRequest(page, count);
 		return this.releaseNoteRepository.findAll(pages);
 	}

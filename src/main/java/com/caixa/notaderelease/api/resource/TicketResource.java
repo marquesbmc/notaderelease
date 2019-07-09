@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.caixa.notaderelease.api.dto.Summary;
 import com.caixa.notaderelease.api.enums.ProfileEnum;
 import com.caixa.notaderelease.api.enums.StatusEnum;
-import com.caixa.notaderelease.api.enums.StatusTicketEnum;
+
 import com.caixa.notaderelease.api.model.ChangeStatus;
 
 import com.caixa.notaderelease.api.model.Ticket;

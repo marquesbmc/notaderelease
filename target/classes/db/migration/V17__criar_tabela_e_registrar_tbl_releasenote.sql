@@ -1,4 +1,3 @@
-
 CREATE TABLE tbl_releasenote (
 	codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	nome_sistema VARCHAR(10),
@@ -71,3 +70,4 @@ INSERT INTO  notadereleaseapi.tbl_releasenote(
 values 
 	('SIRMO', '2008-02-23', 'Normal', 'Produção', false, 'c201901011212', 'TAG', 'ver10.45','Escopo da release' ,'Funcionalidades', 'Problemas',3, 3);
     
+

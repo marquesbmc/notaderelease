@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.caixa.notaderelease.api.enums.StatusEnum;
-import com.caixa.notaderelease.api.enums.StatusTicketEnum;
 import com.caixa.notaderelease.api.model.ChangeStatus;
 import com.caixa.notaderelease.api.model.Ticket;
 
