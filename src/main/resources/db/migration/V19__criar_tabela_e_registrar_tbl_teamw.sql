@@ -37,3 +37,5 @@ values
 INSERT INTO  notadereleaseapi.tbl_team(nome, matricula, funcao, codigo_releasenote)  
 values
 ('Lauro', 'c03', 'Scrum master', 1);
+
+
