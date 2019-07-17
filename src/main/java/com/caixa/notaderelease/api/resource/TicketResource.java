@@ -76,7 +76,6 @@ public class TicketResource {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
-			// ticket.setStatus(StatusTicketEnum.getStatus("Novo"));
 			ticket.setStatus("Novo");
 			ticket.setUser(userFromRequest(request));
 

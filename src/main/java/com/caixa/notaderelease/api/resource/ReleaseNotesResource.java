@@ -3,10 +3,10 @@ package com.caixa.notaderelease.api.resource;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.DateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -76,6 +76,11 @@ public class ReleaseNotesResource {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
+			releaseNotes.setStatusNr("Novo");
+			  
+		releaseNotes.setDataCriacao(LocalDate.now());
+			
+			
 			ReleaseNotes releaseNotesPersisted = (ReleaseNotes) releaseNotesService.createOrUpdate(releaseNotes);
 			response.setData(releaseNotesPersisted);
 
@@ -197,29 +202,6 @@ public class ReleaseNotesResource {
 
 	}
 
-	// if (!numeroNotaRelease.isEmpty() && status.isEmpty()) {
-	// tickets = ticketService.findByNumeroNotaRelease(page, count,
-	// numeroNotaRelease);
-	// }
-	// else {
-	// User userRequest = userFromRequest(request);
-	// if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
-	// if (assigned) {
-	// tickets =
-	// ticketService.findByNumeroNotaReleaseAndStatusAndUsuarioTecnicoAtribuido(page,
-	// count,
-	// numeroNotaRelease, status, userRequest.getCodigo());
-	// } else {
-	//
-	// tickets = ticketService.findByNumeroNotaReleaseAndStatus(page, count,
-	// numeroNotaRelease, status);
-	// }
-	//
-	// } else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
-	//
-	// tickets = ticketService.findByStatusAndUsuarioCliente(page, count,
-	// status, userRequest.getCodigo());
-	// }
-	// }
+	
 
 }
