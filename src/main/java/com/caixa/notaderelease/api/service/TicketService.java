@@ -34,7 +34,7 @@ public interface TicketService {
 	
 	//@GetMapping(value = "/{page}/{count}")
 	//Page<Ticket> findByCurrentUser(int page, int count, Long userCodigo);
-	Page<Ticket> findByUserCoordenacao(int page, int count, String userCoordenacao);
+	Page<Ticket> findByCoordenacao(int page, int count, String coordenacao);
 	
 	//@PutMapping(value = "/{codigo}/{status}")
 	ChangeStatus createChangeStatus(ChangeStatus changeStatus);

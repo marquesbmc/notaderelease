@@ -1,26 +1,18 @@
 package com.caixa.notaderelease.api.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.caixa.notaderelease.api.enums.StatusEnum;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tbl_ticket")
@@ -29,9 +21,8 @@ public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
+
+	@OneToOne()
 	@JoinColumn(name = "codigo_usuario_cliente")
 	private User user;
 	
@@ -42,21 +33,17 @@ public class Ticket {
 	@Column(name = "data_instalacao")
 	private LocalDateTime  dataInstalacao;
 
-
-	@Column(name = "numero_nr")
-	public String numeroNotaRelease;
+	@OneToOne()
+	@JoinColumn(name = "numero_nr")
+	public ReleaseNotes numeroNotaRelease;	
 	
-	/*@Enumerated(EnumType.STRING)
-	@Column(name = "status_notaderelease")
-	private StatusEnum status;*/
-	
+	@Column(name = "coordenacao")
+	private String coordenacao;
 	
 	@Column(name = "status")
 	private String status;
 	
-	
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.REFRESH)
+	@OneToOne()
 	@JoinColumn(name = "codigo_usuario_aprovador")
 	private User assignedUser;
 	
@@ -68,17 +55,6 @@ public class Ticket {
 	
 	@Transient
 	private List<ChangeStatus> changes;
-	
-
-
-	public String getNumeroNotaRelease() {
-		return numeroNotaRelease;
-	}
-
-	public void setNumeroNotaRelease(String numeroNotaRelease) {
-		this.numeroNotaRelease = numeroNotaRelease;
-	}
-	
 	
 	public List<ChangeStatus> getChanges() {
 		return changes;
@@ -104,18 +80,6 @@ public class Ticket {
 		this.user = user;
 	}
 
-	
-
-	
-
-	/*public StatusEnum getStatus() {
-		return status;
-	}
-
-	public void setStatus(StatusEnum status) {
-		this.status = status;
-	}*/
-
 	public User getAssignedUser() {
 		return assignedUser;
 	}
@@ -140,6 +104,14 @@ public class Ticket {
 		this.status = status;
 	}
 
+	public String getCoordenacao() {
+		return coordenacao;
+	}
+
+	public void setCoordenacao(String coordenacao) {
+		this.coordenacao = coordenacao;
+	}
+
 	public LocalDateTime getDataAbertura() {
 		return dataAbertura;
 	}
@@ -162,6 +134,14 @@ public class Ticket {
 
 	public void setInfo(String info) {
 		this.info = info;
+	}
+
+	public ReleaseNotes getNumeroNotaRelease() {
+		return numeroNotaRelease;
+	}
+
+	public void setNumeroNotaRelease(ReleaseNotes numeroNotaRelease) {
+		this.numeroNotaRelease = numeroNotaRelease;
 	}
 
 	@Override

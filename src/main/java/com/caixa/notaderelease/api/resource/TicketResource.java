@@ -1,6 +1,6 @@
 package com.caixa.notaderelease.api.resource;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,18 +23,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caixa.notaderelease.api.dto.Summary;
+
 import com.caixa.notaderelease.api.enums.ProfileEnum;
-import com.caixa.notaderelease.api.enums.StatusEnum;
+
 
 import com.caixa.notaderelease.api.model.ChangeStatus;
-
+import com.caixa.notaderelease.api.model.ReleaseNotes;
 import com.caixa.notaderelease.api.model.Ticket;
 import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
+import com.caixa.notaderelease.api.service.ReleaseNotesService;
 import com.caixa.notaderelease.api.service.TicketService;
 import com.caixa.notaderelease.api.service.UserService;
 
@@ -47,6 +49,11 @@ public class TicketResource {
 	private TicketService ticketService;
 
 	@Autowired
+	private ReleaseNotesService releaseNotesService;
+
+	private ReleaseNotes releaseNotes;
+
+	@Autowired
 	protected JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
@@ -57,7 +64,7 @@ public class TicketResource {
 	public ResponseEntity<Response<String>> delete(@PathVariable("codigo") Long codigo) {
 		Response<String> response = new Response<String>();
 		Ticket ticket = ticketService.findByCodigo(codigo);
-		if (ticket == null) {
+		if (ticket.getCodigo() == null) {
 			response.getErrors().add("Código não registrado:" + codigo);
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -71,19 +78,27 @@ public class TicketResource {
 			BindingResult result) {
 		Response<Ticket> response = new Response<Ticket>();
 		try {
+
+			ticket.setStatus("Novo");
+			ticket.setUser(userFromRequest(request));
+			
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			ticket.setDataAbertura(now);
+			
+			User userRequest = userFromRequest(request);
+			ticket.setCoordenacao(userRequest.getCoordenacao());
+						
+			releaseNotes = releaseNotesService.findByCodigo(ticket.numeroNotaRelease.getCodigo());
+			ticket.setNumeroNotaRelease(releaseNotes);
+			
+
 			validateCreateTicket(ticket, result);
 			if (result.hasErrors()) {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
-			ticket.setStatus("Novo");
-			ticket.setUser(userFromRequest(request));
-
-			LocalDateTime now = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
-			ticket.setDataAbertura(now);
-
+			
 			Ticket ticketPersisted = (Ticket) ticketService.createOrUpdate(ticket);
 			response.setData(ticketPersisted);
 		} catch (Exception e) {
@@ -94,18 +109,21 @@ public class TicketResource {
 		return ResponseEntity.ok(response);
 	}
 
+	private void validateCreateTicket(Ticket ticket, BindingResult result) {
+		 if (ticket.getNumeroNotaRelease() == null) {
+		 result.addError(new ObjectError("Numero da Nota de Release",
+		 "Informar numero da Nota de Release"));
+		 return;
+		 } // adicionar outras
+		 
+		
+
+	}
+
 	private User userFromRequest(HttpServletRequest request) {
 		String token = request.getHeader("Authorization");
 		String matricula = jwtTokenUtil.getUsernameFromToken(token);
 		return userService.findByMatricula(matricula);
-	}
-
-	private void validateCreateTicket(Ticket ticket, BindingResult result) {
-		if (ticket.getNumeroNotaRelease() == null) {
-			result.addError(new ObjectError("Numero da Nota de Release", "Informar numero da Nota de Release"));
-			return;
-		} // adicionar outras
-
 	}
 
 	@PutMapping()
@@ -151,6 +169,46 @@ public class TicketResource {
 			return;
 		}
 	}
+	
+	
+	
+	
+	@PostMapping(value = "/{codigonr}")
+	@PreAuthorize("hasAnyRole('CUSTOMER')")
+	public ResponseEntity<Response<Ticket>> create(HttpServletRequest request,@PathVariable("codigonr") String codigonr, @RequestBody Ticket ticket,
+			BindingResult result) {
+		Response<Ticket> response = new Response<Ticket>();
+		try {
+
+			ticket.setStatus("Novo");
+			ticket.setUser(userFromRequest(request));
+			
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			ticket.setDataAbertura(now);
+			
+			User userRequest = userFromRequest(request);
+			ticket.setCoordenacao(userRequest.getCoordenacao());
+						
+			releaseNotes = releaseNotesService.findByCodigo(ticket.numeroNotaRelease.getCodigo());
+			ticket.setNumeroNotaRelease(releaseNotes);
+			
+
+			validateCreateTicket(ticket, result);
+			if (result.hasErrors()) {
+				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+				return ResponseEntity.badRequest().body(response);
+			}
+			
+			Ticket ticketPersisted = (Ticket) ticketService.createOrUpdate(ticket);
+			response.setData(ticketPersisted);
+		} catch (Exception e) {
+			response.getErrors().add(e.getMessage());
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		return ResponseEntity.ok(response);
+	}
 
 	@PutMapping(value = "/{codigo}/{status}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
@@ -184,7 +242,6 @@ public class TicketResource {
 			changeStatus.setStatus(status);
 			changeStatus.setTicket(ticketCurrent);
 
-			
 			if (status.equals("Atribuído")) {
 				changeStatus.setInfo("<em>" + "Alterou o status para: " + status + "</em> <br /> <br />");
 
@@ -222,12 +279,12 @@ public class TicketResource {
 	 * Response<Ticket> response = new Response<Ticket>();
 	 * 
 	 * 
-	 * try { validateChangeStatus(codigo, status, result); if (result.hasErrors()) {
-	 * result.getAllErrors().forEach(error ->
+	 * try { validateChangeStatus(codigo, status, result); if
+	 * (result.hasErrors()) { result.getAllErrors().forEach(error ->
 	 * response.getErrors().add(error.getDefaultMessage())); return
 	 * ResponseEntity.badRequest().body(response); } Ticket ticketCurrent =
-	 * ticketService.findByCodigo(codigo); ticketCurrent.setStatus(status); String
-	 * st = "Adquirido" ; if(status.equals(st)) {
+	 * ticketService.findByCodigo(codigo); ticketCurrent.setStatus(status);
+	 * String st = "Adquirido" ; if(status.equals(st)) {
 	 * ticketCurrent.setAssignedUser(userFromRequest(request)); } Ticket
 	 * ticketPersisted = (Ticket) ticketService.createOrUpdate(ticketCurrent);
 	 * ChangeStatus changeStatus = new ChangeStatus();
@@ -276,7 +333,7 @@ public class TicketResource {
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping(value = "/{page}/{count}")
+	/*@GetMapping(value = "/{page}/{count}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
 	public ResponseEntity<Response<Page<Ticket>>> findAll(HttpServletRequest request, @PathVariable int page,
 			@PathVariable int count) {
@@ -287,7 +344,24 @@ public class TicketResource {
 		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
 			tickets = ticketService.listTicket(page, count);
 		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
-			tickets = ticketService.findByUserCoordenacao(page, count, userRequest.getCoordenacao());
+			tickets = ticketService.findByCoordenacao(page, count,userRequest.getCoordenacao() );
+		}
+		response.setData(tickets);
+		return ResponseEntity.ok(response);
+	}*/
+	
+	@GetMapping
+	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
+	public ResponseEntity<Response<Page<Ticket>>> findAll(HttpServletRequest request, @RequestParam("page") int page,
+			@RequestParam("count") int count) {
+
+		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
+		Page<Ticket> tickets = null;
+		User userRequest = userFromRequest(request);
+		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
+			tickets = ticketService.listTicket(page, count);
+		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
+			tickets = ticketService.findByCoordenacao(page, count,userRequest.getCoordenacao() );
 		}
 		response.setData(tickets);
 		return ResponseEntity.ok(response);
@@ -328,23 +402,25 @@ public class TicketResource {
 
 	/*
 	 * @GetMapping(value = "/summary") public ResponseEntity<Response<Summary>>
-	 * findChart() { Response<Summary> response = new Response<Summary>(); Summary
-	 * chart = new Summary(); int amountNew = 0; int amountResolved = 0; int
-	 * amountApproved = 0; int amountDisapproved = 0; int amountAssigned = 0; int
-	 * amountClosed = 0; Iterable<Ticket> tickets = ticketService.findAll(); if
-	 * (tickets != null) { for (Iterator<Ticket> iterator = tickets.iterator();
-	 * iterator.hasNext();) { Ticket ticket = iterator.next();
-	 * if(ticket.getStatus().equals(StatusEnum.New)){ amountNew ++; }
-	 * if(ticket.getStatus().equals(StatusEnum.Resolved)){ amountResolved ++; }
-	 * if(ticket.getStatus().equals(StatusEnum.Approved)){ amountApproved ++; }
-	 * if(ticket.getStatus().equals(StatusEnum.Disapproved)){ amountDisapproved ++;
-	 * } if(ticket.getStatus().equals(StatusEnum.Assigned)){ amountAssigned ++; }
+	 * findChart() { Response<Summary> response = new Response<Summary>();
+	 * Summary chart = new Summary(); int amountNew = 0; int amountResolved = 0;
+	 * int amountApproved = 0; int amountDisapproved = 0; int amountAssigned =
+	 * 0; int amountClosed = 0; Iterable<Ticket> tickets =
+	 * ticketService.findAll(); if (tickets != null) { for (Iterator<Ticket>
+	 * iterator = tickets.iterator(); iterator.hasNext();) { Ticket ticket =
+	 * iterator.next(); if(ticket.getStatus().equals(StatusEnum.New)){ amountNew
+	 * ++; } if(ticket.getStatus().equals(StatusEnum.Resolved)){ amountResolved
+	 * ++; } if(ticket.getStatus().equals(StatusEnum.Approved)){ amountApproved
+	 * ++; } if(ticket.getStatus().equals(StatusEnum.Disapproved)){
+	 * amountDisapproved ++; }
+	 * if(ticket.getStatus().equals(StatusEnum.Assigned)){ amountAssigned ++; }
 	 * if(ticket.getStatus().equals(StatusEnum.Closed)){ amountClosed ++; } } }
 	 * chart.setAmountNew(amountNew); chart.setAmountResolved(amountResolved);
 	 * chart.setAmountApproved(amountApproved);
 	 * chart.setAmountDisapproved(amountDisapproved);
-	 * chart.setAmountAssigned(amountAssigned); chart.setAmountClosed(amountClosed);
-	 * response.setData(chart); return ResponseEntity.ok(response); }
+	 * chart.setAmountAssigned(amountAssigned);
+	 * chart.setAmountClosed(amountClosed); response.setData(chart); return
+	 * ResponseEntity.ok(response); }
 	 */
 
 }

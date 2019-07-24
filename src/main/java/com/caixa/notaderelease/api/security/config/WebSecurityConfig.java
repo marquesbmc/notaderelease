@@ -51,13 +51,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS,"/api/user/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/user/**").permitAll()       
+                .antMatchers(HttpMethod.POST,"/api/user/**").permitAll()  
+                
+                .antMatchers(HttpMethod.HEAD,"/api/ticket/**").permitAll()
+                
+                
                 
                 .antMatchers(HttpMethod.OPTIONS,"/api/ticket/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/api/ticket/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/ticket/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/ticket/**").permitAll()               
                 .antMatchers(HttpMethod.GET,"/api/ticket/**").permitAll()                  
                 .antMatchers(HttpMethod.DELETE,"/api/ticket/**").permitAll() 
+                
+                .antMatchers(HttpMethod.OPTIONS,"/api/ticket-new/**").permitAll()
+                .antMatchers(HttpMethod.PUT,"/api/ticket-new/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/ticket-new/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/ticket-new/**").permitAll()                  
+                .antMatchers(HttpMethod.DELETE,"/api/ticket-new/**").permitAll() 
                 
                 .antMatchers(HttpMethod.OPTIONS,"/ticket-list/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/ticket-list/**").permitAll()
@@ -73,6 +83,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/api/releasenotes/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/releasenotes/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/releasenotes/**").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/api/releasenotes/**").permitAll()
+                
                 
                 .antMatchers(HttpMethod.OPTIONS,"/api/releaseNotes-list/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/api/releaseNotes-list/**").permitAll()
@@ -82,8 +94,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS,"/api/statusnotes/**").permitAll() 
                 .antMatchers(HttpMethod.GET,"/api/statusnotes/**").permitAll()
                 
-                .antMatchers(HttpMethod.OPTIONS,"/api/systemnotes/**").permitAll() 
-                .antMatchers(HttpMethod.GET,"/api/systemnotes/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS,"/api/coordsystemnotes/**").permitAll() 
+                .antMatchers(HttpMethod.GET,"/api/coordsystemnotes/**").permitAll()
+                
+    
        
                 
                 

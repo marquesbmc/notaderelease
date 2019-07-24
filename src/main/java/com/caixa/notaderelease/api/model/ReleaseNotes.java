@@ -51,8 +51,6 @@ public class ReleaseNotes {
 	@Column(name = "tp_status_nr")
 	private String statusNr;
 	
-	
-
 	@Column(name = "nm_resumo")
 	private String resumo;
 	

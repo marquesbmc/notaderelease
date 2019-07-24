@@ -3,7 +3,8 @@ package com.caixa.notaderelease.api.resource;
 
 
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.DateFormatter;
@@ -24,10 +25,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.caixa.notaderelease.api.enums.ProfileEnum;
+import com.caixa.notaderelease.api.model.CoordSystemNotes;
 import com.caixa.notaderelease.api.model.ReleaseNotes;
+import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
+import com.caixa.notaderelease.api.service.CoordSystemNotesService;
 import com.caixa.notaderelease.api.service.ReleaseNotesService;
+import com.caixa.notaderelease.api.service.UserService;
 
 @RestController
 @RequestMapping("/api/releasenotes")
@@ -36,20 +42,45 @@ public class ReleaseNotesResource {
 
 	@Autowired
 	private ReleaseNotesService releaseNotesService;
+	
+	@Autowired
+	private CoordSystemNotesService systemNotesService;
 
 	@Autowired
 	protected JwtTokenUtil jwtTokenUtil;
+	
+	@Autowired
+	private UserService userService;
 
+	@SuppressWarnings("null")
 	@GetMapping(value = "/{page}/{count}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
 	public ResponseEntity<Response<Page<ReleaseNotes>>> findAll(HttpServletRequest request, @PathVariable int page,
 			@PathVariable int count) {
-
+		User userRequest = userFromRequest(request);
 		Response<Page<ReleaseNotes>> response = new Response<Page<ReleaseNotes>>();
 		Page<ReleaseNotes> releaseNotes = null;
-		releaseNotes = releaseNotesService.findAll(page, count);
+		
+		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
+			releaseNotes = releaseNotesService.findAll(page, count);
+		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
+			List<CoordSystemNotes> coordsystemNotes = null;
+			coordsystemNotes = systemNotesService.findByCoordSystem(userRequest.getCoordenacao());
+			List<String> systemNotes= new ArrayList<String>();
+			 for (int i=0; i< coordsystemNotes.size(); i++) {
+		      	systemNotes.add(coordsystemNotes.get(i).getNomeSystem());
+		     } 
+	        releaseNotes =  releaseNotesService.findByNomeSistemaIn(page, count, systemNotes);
+		}
 		response.setData(releaseNotes);
 		return ResponseEntity.ok(response);
+	}
+	
+
+	private User userFromRequest(HttpServletRequest request) {
+		String token = request.getHeader("Authorization");
+		String matricula = jwtTokenUtil.getUsernameFromToken(token);
+		return userService.findByMatricula(matricula);
 	}
 
 	@GetMapping(value = "/{codigo}")

@@ -8,15 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_systemnotes")
-public class SystemNotes {
+@Table(name = "tbl_coordsystemnotes")
+public class CoordSystemNotes {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+	@Column(name = "nm_coordnotes")
+	private String coordSystem;
+	
 	
 	@Column(name = "nm_systemnotes")
 	private String nomeSystem;
+	
+	
 
 	public Long getCodigo() {
 		return codigo;
@@ -25,6 +30,8 @@ public class SystemNotes {
 	public String getNomeSystem() {
 		return nomeSystem;
 	}
+	
+	
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
@@ -32,6 +39,14 @@ public class SystemNotes {
 
 	public void setNomeSystem(String nomeSystem) {
 		this.nomeSystem = nomeSystem;
+	}
+
+	public String getCoordSystem() {
+		return coordSystem;
+	}
+
+	public void setCoordSystem(String coordSystem) {
+		this.coordSystem = coordSystem;
 	}
 
 }

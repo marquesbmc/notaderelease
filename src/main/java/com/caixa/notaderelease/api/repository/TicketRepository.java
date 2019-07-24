@@ -13,7 +13,9 @@ public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	//nao esta sendo utilizada - trocando pela debaixo como teste
 	Page<Ticket> findByUserCodigoOrderByDataAberturaDesc(Pageable pages,Long userCodigo);
 	
-	Page<Ticket> findByUserCoordenacaoOrderByDataAberturaDesc(Pageable pages,String userCoordenacao);
+	//Page<Ticket> findByUserCoordenacaoOrderByDataAberturaDesc(Pageable pages,String userCoordenacao);
+	
+	Page<Ticket> findByCoordenacaoOrderByDataAberturaDesc(Pageable pages,String coordenacao);
 	
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusContainingOrderByDataAberturaDesc(
 			String numeroNotaRelease,String status,Pageable pages);
@@ -33,7 +35,10 @@ public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusContainingAndAssignedUserCodigoOrderByDataAberturaDesc(
 			String numeroNotaRelease,String status,Long assignedUserCodigo, Pageable pages);
 	
-
+	
+	
+	Ticket findByNumeroNotaReleaseIsNull(Long numeronotarelease);
+	
 	
 	void delete(Long codigo);
 

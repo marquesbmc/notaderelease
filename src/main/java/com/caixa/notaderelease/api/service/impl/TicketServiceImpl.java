@@ -59,10 +59,10 @@ public class TicketServiceImpl implements TicketService{
 		}
 
 	@Override
-	public Page<Ticket> findByUserCoordenacao(int page, int count, String userCoordenacao) {
+	public Page<Ticket> findByCoordenacao(int page, int count, String coordenacao) {
 		Pageable pages = new PageRequest(page, count);
 		
-		return this.ticketRepository.findByUserCoordenacaoOrderByDataAberturaDesc(pages, userCoordenacao);
+		return this.ticketRepository.findByCoordenacaoOrderByDataAberturaDesc(pages, coordenacao);
 		//return this.ticketRepository.findByUserCodigoOrderByDataAberturaDesc(pages, userCodigo);
 	}
 
