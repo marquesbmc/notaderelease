@@ -2,12 +2,12 @@ package com.caixa.notaderelease.api.resource;
 
 
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.DateFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,16 +23,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.caixa.notaderelease.api.enums.ProfileEnum;
 import com.caixa.notaderelease.api.model.CoordSystemNotes;
 import com.caixa.notaderelease.api.model.ReleaseNotes;
+import com.caixa.notaderelease.api.model.Ticket;
 import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
 import com.caixa.notaderelease.api.service.CoordSystemNotesService;
 import com.caixa.notaderelease.api.service.ReleaseNotesService;
+import com.caixa.notaderelease.api.service.TicketService;
 import com.caixa.notaderelease.api.service.UserService;
 
 @RestController
@@ -51,8 +54,11 @@ public class ReleaseNotesResource {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	TicketService ticketService;
 
-	@SuppressWarnings("null")
+	
 	@GetMapping(value = "/{page}/{count}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
 	public ResponseEntity<Response<Page<ReleaseNotes>>> findAll(HttpServletRequest request, @PathVariable int page,
@@ -107,7 +113,7 @@ public class ReleaseNotesResource {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
-			releaseNotes.setStatusNr("Novo");
+			releaseNotes.setStatusNr("Gerado");
 			  
 		releaseNotes.setDataCriacao(LocalDate.now());
 			
@@ -170,11 +176,37 @@ public class ReleaseNotesResource {
 	@PreAuthorize("hasAnyRole('CUSTOMER','ADMIN')")
 	public ResponseEntity<Response<String>> delete(@PathVariable("codigo") Long codigo) {
 		Response<String> response = new Response<String>();
-		ReleaseNotes releaseNotes = releaseNotesService.findByCodigo(codigo);
-		if (releaseNotes == null) {
+		
+		
+		ReleaseNotes relesenote = releaseNotesService.findByCodigo(codigo);
+		if (relesenote.getCodigo() == null) {
 			response.getErrors().add("Código não registrado:" + codigo);
 			return ResponseEntity.badRequest().body(response);
 		}
+		
+		ReleaseNotes nr = new ReleaseNotes();
+		nr.setCodigo(codigo);
+		Ticket ticket = new Ticket();
+		ticket = ticketService.findByNumeroNotaRelease(nr);
+		if (ticket.getCodigo() != 0) {
+			response.getErrors().add("Nota de Release Vinculada com Ticket: " + ticket.getCodigo());
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		//nr.setCodigo(codigo);
+		//Long count  = ticketService.countByNumeroNotaRelease(nr);
+		//if (count != 0) {
+			//	response.getErrors().add("Nota de Release Vinculada não pode ser excluída:" + codigo);
+			//	return ResponseEntity.badRequest().body(response);
+		//}
+		//Ticket ticket = ticketService.findByNumeroNotaRelease(codigo.toString());
+		
+		//if (ticketService.findByNumeroNotaRelease(codigo.toString()) == null) {
+			//response.getErrors().add("Código não registrado:" + codigo);
+			//return ResponseEntity.badRequest().body(response);
+		//}
+		
+		
 		releaseNotesService.delete(codigo);
 		return ResponseEntity.ok(new Response<String>());
 	}
@@ -232,6 +264,98 @@ public class ReleaseNotesResource {
 		return ResponseEntity.ok(response);
 
 	}
+
+	
+	@GetMapping
+	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
+	public ResponseEntity<Response<Page<ReleaseNotes>>> findAll(HttpServletRequest request,
+				@RequestParam(name="codigo" ,required=false) String codigo,
+				@RequestParam(name="page" ,required=false,defaultValue="0") Integer page,
+				@RequestParam(name="count",required=false,defaultValue="5") Integer count,
+				@RequestParam(name="nomeSistema",required=false, defaultValue="") String nomeSistema,
+				@RequestParam(name="status",required=false, defaultValue="") String status,
+				@RequestParam(name="versaocodigocompilado",required=false, defaultValue="") String versaocodigocompilado,
+				@RequestParam(name="versaocodigofonte" ,required=false, defaultValue="") String versaocodigofonte,
+				@RequestParam(name="dateini" ,required=false,defaultValue="") String dateini,
+				@RequestParam(name="datefim" ,required=false,defaultValue="") String datefim
+				
+			) throws ParseException {
+		Response<Page<ReleaseNotes>> response = new Response<Page<ReleaseNotes>>();
+		Page<ReleaseNotes> relesenotes = null;
+		User userRequest = userFromRequest(request);
+
+
+
+		LocalDate   Dateini;
+		LocalDate   Datefim;
+		
+		if (dateini.isEmpty()){
+			  Dateini       = LocalDate.parse("0001-01-01");
+		}else{
+		  Dateini      = LocalDate.parse(dateini);
+		}
+		if (datefim.isEmpty()){
+			   Datefim       = LocalDate.now();
+		}else{
+			  Datefim       = LocalDate.parse(datefim);
+		}
+		
+		Long CodigoL;
+		if (codigo.isEmpty()){CodigoL=null;}else{CodigoL = Long.parseLong(codigo);}
+		
+		
+		List<String> systemNotes= new ArrayList<String>();
+		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
+			 
+			relesenotes = ListarParaTecnico(page, count, nomeSistema, status, versaocodigocompilado,versaocodigofonte, Dateini, Datefim, CodigoL);			
+		
+		
+		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
+					
+			listarCoordenacoes(userRequest, systemNotes); 
+			relesenotes = ListarParaCliente(page, count, nomeSistema, status, versaocodigocompilado, versaocodigofonte,Dateini, Datefim, CodigoL,
+					systemNotes);
+			 
+		}
+		response.setData(relesenotes);
+		return ResponseEntity.ok(response);
+	}
+
+
+	private void listarCoordenacoes(User userRequest, List<String> systemNotes) {
+		List<CoordSystemNotes> coordsystemNotes = null;
+		coordsystemNotes = systemNotesService.findByCoordSystem(userRequest.getCoordenacao());
+			 for (int i=0; i< coordsystemNotes.size(); i++) {
+		      	systemNotes.add(coordsystemNotes.get(i).getNomeSystem());
+		   }
+	}
+
+
+	private Page<ReleaseNotes> ListarParaCliente(Integer page, Integer count, String nomeSistema, String status,
+			String versaocodigocompilado, String versaocodigofonte,LocalDate Dateini, LocalDate Datefim, Long CodigoL,
+			List<String> systemNotes) {
+		Page<ReleaseNotes> relesenotes;
+		if (CodigoL == null){
+			relesenotes =  releaseNotesService.findByParam(nomeSistema, status,versaocodigocompilado,versaocodigofonte, Dateini, Datefim,systemNotes, page, count);
+		} else {
+			relesenotes =  releaseNotesService.findByParamCodigo( CodigoL,nomeSistema, status,versaocodigocompilado,versaocodigofonte,Dateini, Datefim,systemNotes, page, count);
+		}
+		return relesenotes;
+	}
+	
+
+	private Page<ReleaseNotes> ListarParaTecnico(Integer page, Integer count, String nomeSistema, String status,
+			String versaocodigocompilado,String versaocodigofonte, LocalDate Dateini, LocalDate Datefim, Long CodigoL) {
+		Page<ReleaseNotes> relesenotes;
+		if (CodigoL == null){
+			relesenotes =  releaseNotesService.findByParamTecnico(nomeSistema, status,versaocodigocompilado,versaocodigofonte,Dateini, Datefim, page, count);
+		} else {
+			relesenotes =  releaseNotesService.findByParamCodigoTecnico( CodigoL,nomeSistema, status,versaocodigocompilado,versaocodigofonte,Dateini, Datefim, page, count);
+		}
+		return relesenotes;
+	}
+	
+	
 
 	
 

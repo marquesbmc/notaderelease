@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.caixa.notaderelease.api.enums.StatusEnum;
 
 import com.caixa.notaderelease.api.model.ChangeStatus;
+import com.caixa.notaderelease.api.model.ReleaseNotes;
 import com.caixa.notaderelease.api.model.Ticket;
 import com.caixa.notaderelease.api.repository.ChangeStatusRepository;
 import com.caixa.notaderelease.api.repository.TicketRepository;
@@ -105,6 +106,18 @@ public class TicketServiceImpl implements TicketService{
 				findByNumeroNotaReleaseIgnoreCaseContainingAndStatusContainingOrderByDataAberturaDesc(numeroNotaRelease, status, pages);
 	}
 
+	
+	@Override
+	public Long countByNumeroNotaRelease(ReleaseNotes numeroNotaRelease){
+		return this.ticketRepository.countByNumeroNotaRelease(numeroNotaRelease);
+		
+
+	};
+	
+	@Override
+	public Ticket findByNumeroNotaRelease(ReleaseNotes numeroNotaRelease){
+		return this.ticketRepository.findByNumeroNotaRelease(numeroNotaRelease);
+	};
 	
 	
 	

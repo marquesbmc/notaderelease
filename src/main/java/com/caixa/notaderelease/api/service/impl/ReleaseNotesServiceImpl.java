@@ -2,7 +2,6 @@
 package com.caixa.notaderelease.api.service.impl;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,9 +87,30 @@ public class ReleaseNotesServiceImpl implements ReleaseNotesService {
 	
 	}
 
+	@Override
+	public Page<ReleaseNotes> findByParamCodigo( Long codigo, String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim,List<String> listsistema, int page, int count){					
+		Pageable pages = new PageRequest(page, count);
+		return this.releaseNotesRepository.findByCodigoAndNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenAndNomeSistemaInOrderByDataCriacaoDesc(codigo,nomeSistema, statusNr, versaoCodigoCompilado, versaoCodigoFonte, dateini, datefim, listsistema, pages);				
+	}
 	
+	@Override
+	public Page<ReleaseNotes> findByParam(String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim,List<String> listsistema, int page, int count){					
+		Pageable pages = new PageRequest(page, count);
+		return this.releaseNotesRepository.findByNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenAndNomeSistemaInOrderByDataCriacaoDesc(nomeSistema, statusNr, versaoCodigoCompilado, versaoCodigoFonte, dateini, datefim, listsistema, pages);				
+	}
 	
+	@Override
+	public Page<ReleaseNotes> findByParamCodigoTecnico( Long codigo, String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim, int page, int count){					
+		Pageable pages = new PageRequest(page, count);
+		return this.releaseNotesRepository.findAllByCodigoAndNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenOrderByDataCriacaoDesc(codigo,nomeSistema, statusNr, versaoCodigoCompilado, versaoCodigoFonte, dateini, datefim,  pages);			
+	}
 	
+	@Override
+	public Page<ReleaseNotes> findByParamTecnico(String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim, int page, int count){					
+		Pageable pages = new PageRequest(page, count);
+		return this.releaseNotesRepository.findAllByNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenOrderByDataCriacaoDesc(nomeSistema, statusNr, versaoCodigoCompilado, versaoCodigoFonte, dateini, datefim,  pages);				
+	}
+
 	
 	
 }

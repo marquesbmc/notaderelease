@@ -26,8 +26,19 @@ public interface ReleaseNotesRepository extends JpaRepository<ReleaseNotes, Long
 	
 	Page<ReleaseNotes> findByCodigoAndNomeSistemaIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndStatusNrIgnoreCaseContaining(Long codigo, String nomeSistema,String versaoCodigoFonte,String statusNr , Pageable pages);
 	Page<ReleaseNotes> findByDataCriacaoAndNomeSistemaIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndStatusNrIgnoreCaseContaining(LocalDate dataCriacao,  String nomeSistema,String versaoCodigoFonte, String statusNr,  Pageable pages);
+	
+	
 	Page<ReleaseNotes> findByCodigoAndDataCriacaoAndNomeSistemaIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndStatusNrIgnoreCaseContaining(Long codigo, LocalDate dataCriacao,  String nomeSistema,String versaoCodigoFonte, String statusNr,  Pageable pages);
 	Page<ReleaseNotes> findByNomeSistemaIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndStatusNrIgnoreCaseContaining( String nomeSistema,String versaoCodigoFonte, String statusNr,  Pageable pages);
 	
+	
+	
+	//Listar Nota de Release - Cliente
+	Page<ReleaseNotes> findByNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenAndNomeSistemaInOrderByDataCriacaoDesc( String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim,List<String> listsistema, Pageable pages);
+	Page<ReleaseNotes> findByCodigoAndNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenAndNomeSistemaInOrderByDataCriacaoDesc( Long codigo,String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim,List<String> listsistema, Pageable pages);
+	
+	//Listar Nota de Release - Tecnico
+	Page<ReleaseNotes> findAllByNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenOrderByDataCriacaoDesc( String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim, Pageable pages);
+	Page<ReleaseNotes> findAllByCodigoAndNomeSistemaContainingIgnoreCaseAndStatusNrIgnoreCaseContainingAndVersaoCodigoCompiladoIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndDataCriacaoBetweenOrderByDataCriacaoDesc( Long codigo,String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim, Pageable pages);
 	
 	}

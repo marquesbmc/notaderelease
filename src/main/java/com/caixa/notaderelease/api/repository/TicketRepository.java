@@ -1,13 +1,15 @@
 package com.caixa.notaderelease.api.repository;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
+import com.caixa.notaderelease.api.model.ReleaseNotes;
 import com.caixa.notaderelease.api.model.Ticket;
 
 public interface TicketRepository  extends JpaRepository<Ticket, Long>{
+	
 	
 	
 	//nao esta sendo utilizada - trocando pela debaixo como teste
@@ -35,10 +37,10 @@ public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	Page<Ticket> findByNumeroNotaReleaseIgnoreCaseContainingAndStatusContainingAndAssignedUserCodigoOrderByDataAberturaDesc(
 			String numeroNotaRelease,String status,Long assignedUserCodigo, Pageable pages);
 	
+	Long countByNumeroNotaRelease(ReleaseNotes numeroNotaRelease);
 	
 	
-	Ticket findByNumeroNotaReleaseIsNull(Long numeronotarelease);
-	
+	Ticket findByNumeroNotaRelease(ReleaseNotes numeroNotaRelease);
 	
 	void delete(Long codigo);
 

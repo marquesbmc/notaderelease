@@ -1,6 +1,7 @@
 package com.caixa.notaderelease.api.model;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,6 +31,9 @@ public class ReleaseNotes {
 	@Column(name = "dt_criacao")
 	private LocalDate dataCriacao ;
 	
+	@Column(name = "dt_criacao2")
+	private Date dataCriacao2 ;
+	
 	@Column(name = "tp_ambiente_deploy")
 	private String tipoDeploy;
 	
@@ -48,6 +52,8 @@ public class ReleaseNotes {
 	@Column(name = "nm_coordenador_projeto")
 	private String nomeCoordProjeto;
 	
+	
+	//Gerado, Vinculado, aprovado, reprovado, cancelado
 	@Column(name = "tp_status_nr")
 	private String statusNr;
 	

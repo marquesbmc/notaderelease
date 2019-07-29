@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.caixa.notaderelease.api.enums.StatusEnum;
 import com.caixa.notaderelease.api.model.ChangeStatus;
+import com.caixa.notaderelease.api.model.ReleaseNotes;
 import com.caixa.notaderelease.api.model.Ticket;
 
 @Component
@@ -62,5 +63,10 @@ public interface TicketService {
 	
 	//@GetMapping(value = "{page}/{count}/{numeroNotaRelease}/{status}/{assigned}")
 	Page<Ticket> findByStatusAndUsuarioCliente(int page, int count,String status,Long userCodigo);
+	
+	Long countByNumeroNotaRelease(ReleaseNotes numeroNotaRelease);
+	
+	Ticket findByNumeroNotaRelease(ReleaseNotes numeroNotaRelease);
+	
 
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,6 +59,9 @@ public class TicketResource {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private HttpServletRequest request;
 
 	@DeleteMapping(value = "/{codigo}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','ADMIN')")
@@ -74,7 +78,7 @@ public class TicketResource {
 
 	@PostMapping()
 	@PreAuthorize("hasAnyRole('CUSTOMER')")
-	public ResponseEntity<Response<Ticket>> create(HttpServletRequest request, @RequestBody Ticket ticket,
+	public ResponseEntity<Response<Ticket>> create(@RequestBody Ticket ticket,
 			BindingResult result) {
 		Response<Ticket> response = new Response<Ticket>();
 		try {
@@ -128,7 +132,7 @@ public class TicketResource {
 
 	@PutMapping()
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
-	public ResponseEntity<Response<Ticket>> update(HttpServletRequest request, @RequestBody Ticket ticket,
+	public ResponseEntity<Response<Ticket>> update(@RequestBody Ticket ticket,
 			BindingResult result) {
 		Response<Ticket> response = new Response<Ticket>();
 		try {
@@ -175,7 +179,7 @@ public class TicketResource {
 	
 	@PostMapping(value = "/{codigonr}")
 	@PreAuthorize("hasAnyRole('CUSTOMER')")
-	public ResponseEntity<Response<Ticket>> create(HttpServletRequest request,@PathVariable("codigonr") String codigonr, @RequestBody Ticket ticket,
+	public ResponseEntity<Response<Ticket>> create(@PathVariable("codigonr") String codigonr, @RequestBody Ticket ticket,
 			BindingResult result) {
 		Response<Ticket> response = new Response<Ticket>();
 		try {
@@ -212,8 +216,7 @@ public class TicketResource {
 
 	@PutMapping(value = "/{codigo}/{status}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
-	public ResponseEntity<Response<Ticket>> changeStatus(HttpServletRequest request,
-			@PathVariable("codigo") Long codigo, @PathVariable("status") String status, @RequestBody Ticket ticket,
+	public ResponseEntity<Response<Ticket>> changeStatus(@PathVariable("codigo") Long codigo, @PathVariable("status") String status, @RequestBody Ticket ticket,
 			BindingResult result) {
 
 		Response<Ticket> response = new Response<Ticket>();
@@ -352,8 +355,8 @@ public class TicketResource {
 	
 	@GetMapping
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
-	public ResponseEntity<Response<Page<Ticket>>> findAll(HttpServletRequest request, @RequestParam("page") int page,
-			@RequestParam("count") int count) {
+	public ResponseEntity<Response<Page<Ticket>>> findAll(@RequestParam(required=false)  Integer page,
+			@RequestParam(required=false) Integer count) {
 
 		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
 		Page<Ticket> tickets = null;
@@ -399,6 +402,10 @@ public class TicketResource {
 		response.setData(tickets);
 		return ResponseEntity.ok(response);
 	}
+	
+
+	
+	
 
 	/*
 	 * @GetMapping(value = "/summary") public ResponseEntity<Response<Summary>>

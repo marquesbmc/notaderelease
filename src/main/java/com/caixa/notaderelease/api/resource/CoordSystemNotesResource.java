@@ -1,5 +1,8 @@
 package com.caixa.notaderelease.api.resource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.caixa.notaderelease.api.model.StatusNotes;
 import com.caixa.notaderelease.api.model.User;
+import com.caixa.notaderelease.api.enums.ProfileEnum;
 import com.caixa.notaderelease.api.model.CoordSystemNotes;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
@@ -39,14 +43,23 @@ public class CoordSystemNotesResource {
 	
 	
 	@GetMapping(value = "/{page}/{count}")
-	@PreAuthorize("hasAnyRole('CUSTOMER','ADMIN')")
+	@PreAuthorize("hasAnyRole('CUSTOMER','ADMIN','TECHNICIAN')")
 	public ResponseEntity<Response<Page<CoordSystemNotes>>> findAll(HttpServletRequest request, @PathVariable int page,
 			@PathVariable int count) {
 		
 		User userRequest = userFromRequest(request);
 		Response<Page<CoordSystemNotes>> response = new Response<Page<CoordSystemNotes>>();
 		Page<CoordSystemNotes> coordsystemNotes = null;
-		coordsystemNotes = systemNotesService.findByCoordSystem(page, count, userRequest.getCoordenacao());
+		
+		if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
+			coordsystemNotes = systemNotesService.findByCoordSystem(page, count, userRequest.getCoordenacao());
+		}else if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN) || userRequest.getProfile().equals(ProfileEnum.ROLE_ADMIN)) {
+			coordsystemNotes = systemNotesService.findAll(page, count);
+		}
+		
+		
+		
+		
 		response.setData(coordsystemNotes);
 		return ResponseEntity.ok(response);
 	}

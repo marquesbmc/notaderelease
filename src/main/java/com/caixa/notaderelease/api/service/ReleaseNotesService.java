@@ -2,16 +2,12 @@
 package com.caixa.notaderelease.api.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.CoordSystemNotes;
 import com.caixa.notaderelease.api.model.ReleaseNotes;
-import com.caixa.notaderelease.api.model.Ticket;
 
 
 
@@ -33,4 +29,8 @@ public interface ReleaseNotesService {
 	public Page<ReleaseNotes> findByCodigoAndDataCriacaoAndNomeSistemaIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndStatusNrIgnoreCaseContaining(int page, int count, Long codigo, LocalDate dataCriacao,  String nomeSistema,String versaoCodigoFonte, String statusNr);
 	public Page<ReleaseNotes> findByNomeSistemaIgnoreCaseContainingAndVersaoCodigoFonteIgnoreCaseContainingAndStatusNrIgnoreCaseContaining(int page, int count, String nomeSistema,String versaoCodigoFonte, String statusNr);
 	
+	public Page<ReleaseNotes> findByParamCodigo( Long codigo,String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim,List<String> listsistema,int page, int count);
+	public Page<ReleaseNotes> findByParam( String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim,List<String> listsistema,int page, int count);
+	public Page<ReleaseNotes> findByParamCodigoTecnico( Long codigo, String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim, int page, int count);
+	public Page<ReleaseNotes> findByParamTecnico(String nomeSistema,String statusNr, String versaoCodigoCompilado,String versaoCodigoFonte, LocalDate dateini,LocalDate datefim, int page, int count);
 }
