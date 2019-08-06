@@ -113,7 +113,7 @@ public class ReleaseNotesResource {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
-			releaseNotes.setStatusNr("Gerado");
+			releaseNotes.setStatusNr("Nova");
 			  
 		releaseNotes.setDataCriacao(LocalDate.now());
 			
@@ -269,7 +269,7 @@ public class ReleaseNotesResource {
 	@GetMapping
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
 	public ResponseEntity<Response<Page<ReleaseNotes>>> findAll(HttpServletRequest request,
-				@RequestParam(name="codigo" ,required=false) String codigo,
+				@RequestParam(name="codigo" ,required=false,defaultValue="") String codigo,
 				@RequestParam(name="page" ,required=false,defaultValue="0") Integer page,
 				@RequestParam(name="count",required=false,defaultValue="5") Integer count,
 				@RequestParam(name="nomeSistema",required=false, defaultValue="") String nomeSistema,
@@ -302,20 +302,16 @@ public class ReleaseNotesResource {
 		
 		Long CodigoL;
 		if (codigo.isEmpty()){CodigoL=null;}else{CodigoL = Long.parseLong(codigo);}
-		
-		
 		List<String> systemNotes= new ArrayList<String>();
+		
+		
+		
 		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
-			 
 			relesenotes = ListarParaTecnico(page, count, nomeSistema, status, versaocodigocompilado,versaocodigofonte, Dateini, Datefim, CodigoL);			
-		
-		
-		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {
-					
+		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {	
 			listarCoordenacoes(userRequest, systemNotes); 
 			relesenotes = ListarParaCliente(page, count, nomeSistema, status, versaocodigocompilado, versaocodigofonte,Dateini, Datefim, CodigoL,
 					systemNotes);
-			 
 		}
 		response.setData(relesenotes);
 		return ResponseEntity.ok(response);

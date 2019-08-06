@@ -1,5 +1,6 @@
 package com.caixa.notaderelease.api.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,7 +28,9 @@ public class Ticket {
 	private User user;
 	
 	@Column(name = "data_abertura")
-	private LocalDateTime  dataAbertura;
+	//private LocalDateTime  dataAbertura;
+	private LocalDate  dataAbertura;
+	
 	
 	// no futuro a data de instalacao soh podera ser preenchida apos aprovado e fechado o chamado.
 	@Column(name = "data_instalacao")
@@ -112,11 +115,11 @@ public class Ticket {
 		this.coordenacao = coordenacao;
 	}
 
-	public LocalDateTime getDataAbertura() {
+	public LocalDate getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public void setDataAbertura(LocalDateTime dataAbertura) {
+	public void setDataAbertura(LocalDate dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 

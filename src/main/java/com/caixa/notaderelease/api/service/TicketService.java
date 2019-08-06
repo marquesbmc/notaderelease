@@ -1,6 +1,10 @@
 package com.caixa.notaderelease.api.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,7 @@ import com.caixa.notaderelease.api.enums.StatusEnum;
 import com.caixa.notaderelease.api.model.ChangeStatus;
 import com.caixa.notaderelease.api.model.ReleaseNotes;
 import com.caixa.notaderelease.api.model.Ticket;
+import com.caixa.notaderelease.api.model.User;
 
 @Component
 public interface TicketService {
@@ -48,16 +53,10 @@ public interface TicketService {
 	//@GetMapping(value = "/{page}/{count}")
 	//@GetMapping(value = "/summary")
 	Iterable<Ticket> findAll();
-	
-	
-	
 	//@GetMapping(value = "{page}/{count}/{numeroNotaRelease}/{status}/{assigned}")
 	Page<Ticket> findByNumeroNotaRelease(int page, int count,String numeroNotaRelease);
-	
 	//@GetMapping(value = "{page}/{count}/{numeroNotaRelease}/{status}/{assigned}")
 	public Page<Ticket> findByNumeroNotaReleaseAndStatusAndUsuarioTecnicoAtribuido(int page, int count,String numeroNotaRelease,String status,Long assignedUserCodigo);
-	
-	
 	//@GetMapping(value = "{page}/{count}/{numeroNotaRelease}/{status}/{assigned}")
 	Page<Ticket> findByNumeroNotaReleaseAndStatus(int page, int count,String numeroNotaRelease,String status);
 	
@@ -68,5 +67,13 @@ public interface TicketService {
 	
 	Ticket findByNumeroNotaRelease(ReleaseNotes numeroNotaRelease);
 	
+	
+	
+	Page<Ticket> findByParam(int page, int count,String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim,List<String> listsistema);
+	Page<Ticket> findByParamCodigo(int page, int count,Long codigo,String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim,List<String> listsistema);
+	
+	
+	Page<Ticket> findByParamUserTecnico(int page, int count,String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim);
+	Page<Ticket> findByParamUserTecnicoCodigo(int page, int count,Long codigo, String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim);
 
 }

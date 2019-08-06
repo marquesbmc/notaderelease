@@ -22,7 +22,7 @@ CREATE TABLE tbl_ticket (
 
 INSERT INTO  notadereleaseapi.tbl_ticket(codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr,coordenacao, status, codigo_usuario_aprovador,info, descricao  ) 
 values
-(2,'2008-02-23','2008-02-23',3,'Coord1','Novo' ,null,'22','11111' );
+(2,'2008-02-23','2008-02-23',3,'Coord1','Novo' ,4,'22','11111' );
 
 
 INSERT INTO  notadereleaseapi.tbl_ticket(codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr,coordenacao, status, codigo_usuario_aprovador,info, descricao  ) 

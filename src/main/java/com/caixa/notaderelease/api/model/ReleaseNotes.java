@@ -31,8 +31,6 @@ public class ReleaseNotes {
 	@Column(name = "dt_criacao")
 	private LocalDate dataCriacao ;
 	
-	@Column(name = "dt_criacao2")
-	private Date dataCriacao2 ;
 	
 	@Column(name = "tp_ambiente_deploy")
 	private String tipoDeploy;

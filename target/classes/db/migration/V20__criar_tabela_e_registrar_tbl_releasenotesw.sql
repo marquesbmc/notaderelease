@@ -120,7 +120,6 @@ CREATE TABLE tbl_releasenotes(
 	codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	nm_sistema VARCHAR(30),
 	dt_criacao DATE, 
-	dt_criacao2 DATE, 
 	tp_ambiente_deploy VARCHAR(30),
 	nm_ambiente_deploy VARCHAR(30), 
 	vs_codigo_fonte VARCHAR(30), 
@@ -144,7 +143,6 @@ CREATE TABLE tbl_releasenotes(
 INSERT INTO  tbl_releasenotes(
 	nm_sistema,
 	dt_criacao,
-	dt_criacao2,
 	tp_ambiente_deploy,
 	nm_ambiente_deploy, 
 	vs_codigo_fonte, 
@@ -161,7 +159,6 @@ INSERT INTO  tbl_releasenotes(
 values(
 	'SINCO',
 	'2008-02-23',
-	'1980-05-30',
 	'Padrao',
 	'homologacao',
 	'c20192333221',
@@ -180,7 +177,6 @@ values(
 INSERT INTO  tbl_releasenotes(
 	nm_sistema,
 	dt_criacao,
-	dt_criacao2,
 	tp_ambiente_deploy,
 	nm_ambiente_deploy, 
 	vs_codigo_fonte, 
@@ -197,7 +193,6 @@ INSERT INTO  tbl_releasenotes(
 values(
 	'SIRFG',
 	'2008-02-23',
-	'1980-05-31',
 	'Padrao',
 	'homologacao',
 	'c20192333221',
@@ -216,7 +211,6 @@ values(
 INSERT INTO  tbl_releasenotes(
 	nm_sistema,
 	dt_criacao,
-	dt_criacao2,
 	tp_ambiente_deploy,
 	nm_ambiente_deploy, 
 	vs_codigo_fonte, 
@@ -233,7 +227,6 @@ INSERT INTO  tbl_releasenotes(
 values(
 	'SINCO',
 	'2008-02-23',
-	'2012-07-30',
 	'Padrao',
 	'homologacao',
 	'c20192333221',
