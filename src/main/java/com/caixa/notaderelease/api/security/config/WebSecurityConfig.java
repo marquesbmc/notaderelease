@@ -86,6 +86,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/api/releasenotes/**").permitAll()
                 
                 
+                
+                
                 .antMatchers(HttpMethod.OPTIONS,"/api/releaseNotes-list/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/api/releaseNotes-list/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/releaseNotes-list/**").permitAll()

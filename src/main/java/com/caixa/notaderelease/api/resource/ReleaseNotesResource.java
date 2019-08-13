@@ -76,11 +76,20 @@ public class ReleaseNotesResource {
 			 for (int i=0; i< coordsystemNotes.size(); i++) {
 		      	systemNotes.add(coordsystemNotes.get(i).getNomeSystem());
 		     } 
+		 
+		
+			 
 	        releaseNotes =  releaseNotesService.findByNomeSistemaIn(page, count, systemNotes);
 		}
+		
+		buscarCodigoStatusTicket(releaseNotes);
+		
 		response.setData(releaseNotes);
 		return ResponseEntity.ok(response);
 	}
+
+
+
 	
 
 	private User userFromRequest(HttpServletRequest request) {
@@ -98,6 +107,7 @@ public class ReleaseNotesResource {
 			response.getErrors().add("Registro não encontrado com código:" + codigo);
 			return ResponseEntity.badRequest().body(response);
 		}
+		
 		response.setData(releaseNotes);
 		return ResponseEntity.ok(response);
 	}
@@ -188,7 +198,7 @@ public class ReleaseNotesResource {
 		nr.setCodigo(codigo);
 		Ticket ticket = new Ticket();
 		ticket = ticketService.findByNumeroNotaRelease(nr);
-		if (ticket.getCodigo() != 0) {
+		if (ticket != null) {
 			response.getErrors().add("Nota de Release Vinculada com Ticket: " + ticket.getCodigo());
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -205,7 +215,6 @@ public class ReleaseNotesResource {
 			//response.getErrors().add("Código não registrado:" + codigo);
 			//return ResponseEntity.badRequest().body(response);
 		//}
-		
 		
 		releaseNotesService.delete(codigo);
 		return ResponseEntity.ok(new Response<String>());
@@ -259,7 +268,7 @@ public class ReleaseNotesResource {
 				releaseNotes = releaseNotesService.findAll(page, count);
 			}
 		
-		
+		buscarCodigoStatusTicket(releaseNotes);
 		response.setData(releaseNotes);
 		return ResponseEntity.ok(response);
 
@@ -313,6 +322,8 @@ public class ReleaseNotesResource {
 			relesenotes = ListarParaCliente(page, count, nomeSistema, status, versaocodigocompilado, versaocodigofonte,Dateini, Datefim, CodigoL,
 					systemNotes);
 		}
+		
+		buscarCodigoStatusTicket(relesenotes);
 		response.setData(relesenotes);
 		return ResponseEntity.ok(response);
 	}
@@ -350,6 +361,18 @@ public class ReleaseNotesResource {
 		}
 		return relesenotes;
 	}
+	
+	private void buscarCodigoStatusTicket(Page<ReleaseNotes> releaseNotes) {
+		releaseNotes.forEach(rn -> 
+
+		rn.setCodTicket(ticketService.findByNumeroNotaRelease(rn) != null ? String.valueOf(ticketService.findByNumeroNotaRelease(rn).getCodigo()) : "")	);
+		
+		releaseNotes.forEach(rn -> 
+		
+		rn.setStatusTicket(ticketService.findByNumeroNotaRelease(rn) != null ? String.valueOf(ticketService.findByNumeroNotaRelease(rn).getStatus()) : "")	);
+	}
+	
+	
 	
 	
 

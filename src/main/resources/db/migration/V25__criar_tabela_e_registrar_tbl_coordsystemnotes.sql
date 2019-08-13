@@ -1,50 +1,46 @@
 CREATE TABLE tbl_coordsystemnotes (
     codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-	nm_coordnotes VARCHAR(50),
-    nm_systemnotes VARCHAR(50)
+	nm_coordnotes VARCHAR(100),
+    nm_systemnotes VARCHAR(100)
    
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
-values
-('Coord1','SINCO');
 
-INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
-values
-('Coord2','SIRFG');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord3','SIDFG');
+('Arquitetura de Sistemas e Padronização','SINCO -  Núcleo de Consulta');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord4','SICTF');
+('Arquitetura de Sistemas e Padronização','SICAG -  Atendimento ao Gestor');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord5','SIMIG');
+('Certificação e Regularidade','SIRFG - Regularidade do Fundo de Garantia');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord3','GUIA');
+('Migração e Convivência','SIMIG - Migração e Convivência do Fundo de Garantia');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord6','SIOFG');
+('Obrigações Financeiras','SIOFG - Obrigações Financeiras do Fundo de Garantia');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord7','SIFAG');
+('Gestão do Programa','SIRMO - Realocação de Mão de Obra do Fundo de Garantia');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord0','SIFUG');
+('Depósito e Transferência de Recursos','SIDFG - Depósito e Transferência de Recursos do Fundo de Garantia');
 
 INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
 values
-('Coord0','SINCO');
+('Depósito e Transferência de Recursos','SICTF - Contabilidades do Fundo de Garantia');
 
-
+INSERT INTO  notadereleaseapi.tbl_coordsystemnotes(nm_coordnotes,nm_systemnotes) 
+values
+('Depósito e Transferência de Recursos','GUIA - Módulos de Guia do Fundo de Garantia');
 

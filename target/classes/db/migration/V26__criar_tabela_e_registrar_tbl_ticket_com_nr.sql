@@ -5,7 +5,7 @@ CREATE TABLE tbl_ticket (
 	data_abertura DATETIME,	
         data_instalacao DATETIME ,	
 	numero_nr BIGINT(20),
-	coordenacao VARCHAR(30),
+	coordenacao VARCHAR(100),
 	status VARCHAR(30),
 	codigo_usuario_aprovador BIGINT(20),
 	info TEXT,
@@ -19,12 +19,3 @@ CREATE TABLE tbl_ticket (
 
 
 
-
-INSERT INTO  notadereleaseapi.tbl_ticket(codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr,coordenacao, status, codigo_usuario_aprovador,info, descricao  ) 
-values
-(2,'2008-02-23','2008-02-23',3,'Coord1','Novo' ,4,'22','11111' );
-
-
-INSERT INTO  notadereleaseapi.tbl_ticket(codigo_usuario_cliente, data_abertura, data_instalacao, numero_nr,coordenacao, status, codigo_usuario_aprovador,info, descricao  ) 
-values
-(3,'2008-02-23','2008-02-23',2,'Coord2','Aprovado' ,null,'22','11111' );

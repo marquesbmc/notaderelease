@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tbl_releasenotes")
@@ -27,10 +28,8 @@ public class ReleaseNotes {
 	@Column(name = "nm_sistema")
 	private String nomeSistema;
 	
-	
 	@Column(name = "dt_criacao")
 	private LocalDate dataCriacao ;
-	
 	
 	@Column(name = "tp_ambiente_deploy")
 	private String tipoDeploy;
@@ -50,7 +49,6 @@ public class ReleaseNotes {
 	@Column(name = "nm_coordenador_projeto")
 	private String nomeCoordProjeto;
 	
-	
 	//Gerado, Vinculado, aprovado, reprovado, cancelado
 	@Column(name = "tp_status_nr")
 	private String statusNr;
@@ -66,7 +64,6 @@ public class ReleaseNotes {
 	
 	@Column(name = "nm_infraestrutura_software")
 	private String infraestruturaSoftware;
-	
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_releasenotes")
@@ -84,6 +81,30 @@ public class ReleaseNotes {
 	@JoinColumn(name = "codigo_database")
 	private Database database;
 	
+	@Transient
+	private String codTicket;
+	
+	@Transient
+	private String statusTicket;
+	
+	
+	public String getStatusTicket() {
+		return statusTicket;
+	}
+
+	public void setStatusTicket(String statusTicket) {
+		this.statusTicket = statusTicket;
+	}
+
+	
+	public String getCodTicket() {
+		return codTicket;
+	}
+
+	public void  setCodTicket(String codTicket) {
+		this.codTicket = codTicket;
+	}
+
 	public Long getCodigo() {
 		return codigo;
 	}

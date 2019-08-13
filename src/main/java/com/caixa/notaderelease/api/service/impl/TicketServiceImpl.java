@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import com.caixa.notaderelease.api.enums.StatusEnum;
@@ -46,7 +47,7 @@ public class TicketServiceImpl implements TicketService{
 
 	@Override
 	public Page<Ticket> listTicket(int page, int count) {
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.findAll(pages);
 	}
 	//obs
@@ -65,7 +66,7 @@ public class TicketServiceImpl implements TicketService{
 
 	@Override
 	public Page<Ticket> findByCoordenacao(int page, int count, String coordenacao) {
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		
 		return this.ticketRepository.findByCoordenacaoOrderByDataAberturaDesc(pages, coordenacao);
 		//return this.ticketRepository.findByUserCodigoOrderByDataAberturaDesc(pages, userCodigo);
@@ -76,7 +77,7 @@ public class TicketServiceImpl implements TicketService{
 	
 	@Override
 	public Page<Ticket> findByStatusAndUsuarioCliente(int page, int count,String status,Long userCodigo) {
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 	
 		return this.ticketRepository.findByStatusContainingAndUserCodigoOrderByDataAberturaDesc(status, userCodigo, pages );
 		
@@ -84,7 +85,7 @@ public class TicketServiceImpl implements TicketService{
 
 	@Override
 	public Page<Ticket> findByNumeroNotaRelease(int page, int count, String numeroNotaRelease) {
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.findByNumeroNotaRelease(numeroNotaRelease, pages);
 	}
 
@@ -96,7 +97,7 @@ public class TicketServiceImpl implements TicketService{
 	@Override
 	public Page<Ticket> findByNumeroNotaReleaseAndStatusAndUsuarioTecnicoAtribuido(int page, int count, String numeroNotaRelease, String status,
 			Long assignedUserCodigo) {
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.findByNumeroNotaReleaseIgnoreCaseContainingAndStatusContainingAndAssignedUserCodigoOrderByDataAberturaDesc(numeroNotaRelease, status, assignedUserCodigo, pages);
 	}
 	
@@ -105,7 +106,7 @@ public class TicketServiceImpl implements TicketService{
 
 	@Override
 	public Page<Ticket> findByNumeroNotaReleaseAndStatus(int page, int count, String numeroNotaRelease, String status) {
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.
 				findByNumeroNotaReleaseIgnoreCaseContainingAndStatusContainingOrderByDataAberturaDesc(numeroNotaRelease, status, pages);
 	}
@@ -126,27 +127,27 @@ public class TicketServiceImpl implements TicketService{
 	
 	@Override
 	public Page<Ticket> findByParam(int page, int count,String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim,List<String> listsistema){
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.findByStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenAndNumeroNotaReleaseNomeSistemaInOrderByDataAberturaDesc( status,  sistema, coordenacao,  dateini, datefim, listsistema, pages);							 
 	};
 	
 	
 	@Override
 	public Page<Ticket> findByParamCodigo(int page, int count,Long codigo,String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim,List<String> listsistema){
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.findByNumeroNotaReleaseCodigoAndStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenAndNumeroNotaReleaseNomeSistemaInOrderByDataAberturaDesc(codigo, status, sistema, coordenacao, dateini, datefim, listsistema, pages);							 
 	};
 	
 	@Override
 	public Page<Ticket> findByParamUserTecnico(int page, int count,String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim){
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		//return this.ticketRepository.findByStatusContainingIgnoreCaseAndAssignedUserMatriculaContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenOrderByDataAberturaDesc(status, assignedusermatricula, sistema, coordenacao, dateini, datefim, pages);
 		return this.ticketRepository.findByStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenOrderByDataAberturaDesc(status,  sistema, coordenacao, dateini, datefim, pages);
 	};
 	
 	@Override
 	public Page<Ticket> findByParamUserTecnicoCodigo(int page, int count,Long codigo, String status,String sistema, String coordenacao,LocalDate dateini,LocalDate datefim){
-		Pageable pages = new PageRequest(page, count);
+		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.findByNumeroNotaReleaseCodigoAndStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenOrderByDataAberturaDesc(codigo,status,  sistema, coordenacao,  dateini, datefim, pages);					 
 	};
 	

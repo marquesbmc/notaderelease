@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.caixa.notaderelease.api.model.ReleaseNotes;
@@ -15,6 +16,13 @@ import com.caixa.notaderelease.api.model.ReleaseNotes;
 public interface ReleaseNotesRepository extends JpaRepository<ReleaseNotes, Long> {
 	
 	ReleaseNotes findByCodigo(Long codigo);
+	
+	Page<ReleaseNotes> findAll(Pageable pages);
+	
+	
+	
+	
+	
 	void delete(Long codigo);
 	
 	

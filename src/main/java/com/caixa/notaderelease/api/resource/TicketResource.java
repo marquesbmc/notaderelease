@@ -411,38 +411,33 @@ public class TicketResource {
 			@RequestParam(name = "nomesistema", required = false, defaultValue = "") String nomesistema,
 			@RequestParam(name = "coordenacao", required = false, defaultValue = "") String coordenacao,
 			@RequestParam(name = "dateini", required = false, defaultValue = "") String dateini,
-			@RequestParam(name = "datefim", required = false, defaultValue = "") String datefim
+			@RequestParam(name = "datefim", required = false, defaultValue = "") String datefim,
+			@RequestParam(name = "fonte", required = false, defaultValue = "") String fonte
 			
 			
 	) throws ParseException {
-		
 		
 		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
 		Page<Ticket> tickets = null;
 		List<String> systemNotes= new ArrayList<String>();
 		User userRequest = userFromRequest(request);
 		LocalDate Dateini; LocalDate Datefim;Long CodigoL; 
-		
+		String Fonte =fonte;
 		
 		
 		if (dateini.isEmpty()){Dateini = LocalDate.parse("0001-01-01");} else {Dateini = LocalDate.parse(dateini);}
 		if (datefim.isEmpty()) {Datefim = LocalDate.now();} else {Datefim = LocalDate.parse(datefim);}
 		if (codigonr.isEmpty()) {CodigoL = null;} else {CodigoL = Long.parseLong(codigonr);}
 		
-		
-		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
-			tickets = null;
-									   
+		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN) || Fonte !="" ) {
+			tickets = null;		   
 			tickets = ListarParaTecnico(page, count,CodigoL, status, nomesistema,coordenacao, Dateini, Datefim);			
 		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {	
 			listarCoordenacoes(userRequest, systemNotes); 
 			tickets = null;
 		tickets = ListarParaCliente(page, count,CodigoL,status, nomesistema, coordenacao, Dateini, Datefim,systemNotes);}
 		
-		
-
 	
-		
 		response.setData(tickets);
 		return ResponseEntity.ok(response);
 	}

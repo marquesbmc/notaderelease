@@ -11,44 +11,5 @@ CREATE TABLE notadereleaseapi.tbl_listteam (
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes) 
-values
-('Bruno M', 'c01','Desenvolvedor', 1);
 
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes)  
-values
-('Marcus', 'c03', 'Scrum master',1);
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes) 
-values
-('Caxias', 'c01','Desenvolvedor', 1);
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes) 
-values
-('Marcus', 'c03','Desenvolvedor' ,2);
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes) 
-values
-('Lauro', 'c03', 'Desenvolvedor',2);
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes) 
-values
-('Marcus', 'c03','Desenvolvedor', 1);
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes)  
-values
-('Lauro', 'c03', 'Scrum master', 3);
-
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes) 
-values
-('Lauro', 'c03', 'Desenvolvedor',3);
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes) 
-values
-('Marcus', 'c03','Desenvolvedor', 3);
-
-INSERT INTO  notadereleaseapi.tbl_listteam(nome, matricula, papel, codigo_releasenotes)  
-values
-('Lauro', 'c03', 'Scrum master', 3);
     

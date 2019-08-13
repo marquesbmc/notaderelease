@@ -7,30 +7,6 @@ CREATE TABLE tbl_database(
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 	
-INSERT INTO  notadereleaseapi.tbl_database(
-	nm_modelobanco,
-	nm_matrizacesso,
-	nm_cargadados,
-	nm_acessobd) 
-values
-	('blabla1','blabla1','blabla1','blabla1');
-
-
-INSERT INTO  notadereleaseapi.tbl_database(
-	nm_modelobanco,
-	nm_matrizacesso,
-	nm_cargadados,
-	nm_acessobd) 
-values
-	('blabla2','blabla2','blabla2','blabla2');
-
-INSERT INTO  notadereleaseapi.tbl_database(
-	nm_modelobanco,
-	nm_matrizacesso,
-	nm_cargadados,
-	nm_acessobd) 
-values
-	('blabla3','blabla3','blabla3','blabla3');
 
 
 
@@ -55,62 +31,7 @@ CREATE TABLE tbl_qualitycode(
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
-INSERT INTO  notadereleaseapi.tbl_qualitycode(
-	dt_consulta, 
-	nm_conceito,
-	tt_linhas,
-	tt_classes,
-	tt_duplicacoes,
-	tt_unitariocobertura,
-	tt_unitarioignorado,
-	tt_teste,
-	tt_falhas,
-	tt_erros,
-	tt_problemablocker,
-	tt_problemacritical,
-	tt_problemamajor,
-	tt_problemaminor,
-	tt_problemainfo) 
-values
-	('2008-02-23',',A','13','13','13','13','13','13','13','13','13','13','13','13','13');
 
-INSERT INTO  notadereleaseapi.tbl_qualitycode(
-	dt_consulta, 
-	nm_conceito,
-	tt_linhas,
-	tt_classes,
-	tt_duplicacoes,
-	tt_unitariocobertura,
-	tt_unitarioignorado,
-	tt_teste,
-	tt_falhas,
-	tt_erros,
-	tt_problemablocker,
-	tt_problemacritical,
-	tt_problemamajor,
-	tt_problemaminor,
-	tt_problemainfo) 
-values
-	('2008-02-23',',A','14','14','14','14','14','14','14','14','14','14','14','14','14');
-
-INSERT INTO  notadereleaseapi.tbl_qualitycode(
-	dt_consulta, 
-	nm_conceito,
-	tt_linhas,
-	tt_classes,
-	tt_duplicacoes,
-	tt_unitariocobertura,
-	tt_unitarioignorado,
-	tt_teste,
-	tt_falhas,
-	tt_erros,
-	tt_problemablocker,
-	tt_problemacritical,
-	tt_problemamajor,
-	tt_problemaminor,
-	tt_problemainfo) 
-values
-	('2008-02-23',',A','15','15','15','15','15','15','15','15','15','15','15','15','15');
 
 
 
@@ -118,7 +39,7 @@ values
 
 CREATE TABLE tbl_releasenotes(
 	codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-	nm_sistema VARCHAR(30),
+	nm_sistema VARCHAR(100),
 	dt_criacao DATE, 
 	tp_ambiente_deploy VARCHAR(30),
 	nm_ambiente_deploy VARCHAR(30), 
@@ -139,108 +60,6 @@ CREATE TABLE tbl_releasenotes(
 	FOREIGN KEY (codigo_database) REFERENCES tbl_database(codigo)
 	) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 
-
-INSERT INTO  tbl_releasenotes(
-	nm_sistema,
-	dt_criacao,
-	tp_ambiente_deploy,
-	nm_ambiente_deploy, 
-	vs_codigo_fonte, 
-	vs_codigo_compilado,
-	nm_coordenador_ti, 
-	nm_coordenador_projeto, 
-	tp_status_nr,
-	nm_resumo,
-	nm_problemas,
-	nm_funcionalidades,
-	nm_infraestrutura_software,
-	codigo_qualitycode,
-	codigo_database) 
-values(
-	'SINCO',
-	'2008-02-23',
-	'Padrao',
-	'homologacao',
-	'c20192333221',
-	'00.00.001',
-	'Coord de ti',
-	'Coord de Projeto',
-	'Aprovado',
-	'nm_resumo',
-	'nm_problemas',
-	'nm_funcionalidades',
-	'Roles1',
-	1,
-	1
-);
-
-INSERT INTO  tbl_releasenotes(
-	nm_sistema,
-	dt_criacao,
-	tp_ambiente_deploy,
-	nm_ambiente_deploy, 
-	vs_codigo_fonte, 
-	vs_codigo_compilado,
-	nm_coordenador_ti, 
-	nm_coordenador_projeto, 
-	tp_status_nr,
-	nm_resumo,
-	nm_problemas,
-	nm_funcionalidades,
-	nm_infraestrutura_software,
-	codigo_qualitycode,
-	codigo_database) 
-values(
-	'SIRFG',
-	'2008-02-23',
-	'Padrao',
-	'homologacao',
-	'c20192333221',
-	'00.00.001',
-	'Coord de ti',
-	'Coord de Projeto',
-	'Reprovado',
-	'nm_resumo',
-	'nm_problemas',
-	'nm_funcionalidades',
-	'Roles2',
-	2,
-	2
-);
-
-INSERT INTO  tbl_releasenotes(
-	nm_sistema,
-	dt_criacao,
-	tp_ambiente_deploy,
-	nm_ambiente_deploy, 
-	vs_codigo_fonte, 
-	vs_codigo_compilado,
-	nm_coordenador_ti, 
-	nm_coordenador_projeto, 
-	tp_status_nr,
-	nm_resumo,
-	nm_problemas,
-	nm_funcionalidades,
-	nm_infraestrutura_software,
-	codigo_qualitycode,
-	codigo_database) 
-values(
-	'SINCO',
-	'2008-02-23',
-	'Padrao',
-	'homologacao',
-	'c20192333221',
-	'00.00.001',
-	'Coord de ti',
-	'Coord de Projeto',
-	'Cancelado',
-	'nm_resumo',
-	'nm_problemas',
-	'nm_funcionalidades',
-	'Roles3',
-	3,
-	3
-);
 
 
 

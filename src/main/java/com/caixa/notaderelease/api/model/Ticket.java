@@ -31,7 +31,6 @@ public class Ticket {
 	//private LocalDateTime  dataAbertura;
 	private LocalDate  dataAbertura;
 	
-	
 	// no futuro a data de instalacao soh podera ser preenchida apos aprovado e fechado o chamado.
 	@Column(name = "data_instalacao")
 	private LocalDateTime  dataInstalacao;
@@ -59,6 +58,8 @@ public class Ticket {
 	@Transient
 	private List<ChangeStatus> changes;
 	
+	
+
 	public List<ChangeStatus> getChanges() {
 		return changes;
 	}
