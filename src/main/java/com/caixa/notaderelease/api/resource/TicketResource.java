@@ -3,7 +3,6 @@ package com.caixa.notaderelease.api.resource;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -88,8 +87,8 @@ public class TicketResource {
 			ticket.setStatus("Novo");
 			ticket.setUser(userFromRequest(request));
 
-			LocalDateTime now = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			//LocalDateTime now = LocalDateTime.now();
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			//ticket.setDataAbertura(now);
 			ticket.setDataAbertura(LocalDate.now());
 			
@@ -182,8 +181,8 @@ public class TicketResource {
 			ticket.setStatus("Novo");
 			ticket.setUser(userFromRequest(request));
 
-			LocalDateTime now = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			//LocalDateTime now = LocalDateTime.now();
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			//ticket.setDataAbertura(now);
 			ticket.setDataAbertura(LocalDate.now());
 
@@ -234,7 +233,7 @@ public class TicketResource {
 			changeStatus.setUserChange(userFromRequest(request).getNome());
 
 			LocalDateTime now = LocalDateTime.now();
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 			changeStatus.setDateChangeStatus(now);
 			changeStatus.setStatus(status);

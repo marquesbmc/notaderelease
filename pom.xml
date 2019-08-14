@@ -5,11 +5,11 @@
 
 	<groupId>com.caixa.notaderelease-api</groupId>
 	<artifactId>notaderelease-api</artifactId>
-	<version>0.0.2-ALPHA</version>
+	<version>0.0.1-Teste</version>
 	<packaging>jar</packaging>
 
-	<name>notaderelase-api</name>
-	<description>servico many to many finalizado</description>
+	<name>releasenote-api</name>
+	<description>service release note digital</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

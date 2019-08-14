@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caixa.notaderelease.api.model.ReleaseNotes;
 import com.caixa.notaderelease.api.model.StatusNotes;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
-import com.caixa.notaderelease.api.service.ReleaseNotesService;
 import com.caixa.notaderelease.api.service.StatusNotesService;
 
 

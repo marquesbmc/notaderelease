@@ -4,18 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
-import com.caixa.notaderelease.api.enums.StatusEnum;
 import com.caixa.notaderelease.api.model.ChangeStatus;
 import com.caixa.notaderelease.api.model.ReleaseNotes;
 import com.caixa.notaderelease.api.model.Ticket;
-import com.caixa.notaderelease.api.model.User;
 
 @Component
 public interface TicketService {

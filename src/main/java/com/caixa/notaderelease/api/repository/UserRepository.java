@@ -10,9 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	User findByMatricula(String matricula);
 
 	User findByCodigo(Long codigo);
-	
-	
-	
 
 	void delete(Long codigo);
 

@@ -1,17 +1,11 @@
 package com.caixa.notaderelease.api.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tbl_team")
@@ -27,13 +21,12 @@ public class Team {
 	@Column(name = "matricula")
 	private String matricula;
 	
-	@Column(name = "funcao")
-	private String responsabilidade;
+	@Column(name = "papel")
+	private String papel;
 	
-	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_releasenote")
-	private ReleaseNoteOld releaseNote;
+	@Column(name = "codigo_releasenotes")
+	private Long releasenotes;
+
 
 	public Long getCodigo() {
 		return codigo;
@@ -59,20 +52,20 @@ public class Team {
 		this.matricula = matricula;
 	}
 
-	public String getResponsabilidade() {
-		return responsabilidade;
+	public String getPapel() {
+		return papel;
 	}
 
-	public void setResponsabilidade(String responsabilidade) {
-		this.responsabilidade = responsabilidade;
+	public void setPapel(String papel) {
+		this.papel = papel;
 	}
 
-	public ReleaseNoteOld getReleaseNote() {
-		return releaseNote;
+	public Long getReleasenotes() {
+		return releasenotes;
 	}
 
-	public void setReleaseNote(ReleaseNoteOld releaseNote) {
-		this.releaseNote = releaseNote;
+	public void setReleasenotes(Long releasenotes) {
+		this.releasenotes = releasenotes;
 	}
 
 	@Override

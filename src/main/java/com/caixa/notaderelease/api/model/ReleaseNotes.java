@@ -1,7 +1,6 @@
 package com.caixa.notaderelease.api.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -67,11 +66,11 @@ public class ReleaseNotes {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_releasenotes")
-	private List<ListTeam> listteam;
+	private List<Team> listteam;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_releasenotes")
-	private List<ListModule> listmodule;
+	private List<Module> listmodule;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codigo_qualitycode")
@@ -218,19 +217,19 @@ public class ReleaseNotes {
 		this.infraestruturaSoftware = infraestruturaSoftware;
 	}
 
-	public List<ListTeam> getListteam() {
+	public List<Team> getListteam() {
 		return listteam;
 	}
 
-	public void setListteam(List<ListTeam> listteam) {
+	public void setListteam(List<Team> listteam) {
 		this.listteam = listteam;
 	}
 
-	public List<ListModule> getListmodule() {
+	public List<Module> getListmodule() {
 		return listmodule;
 	}
 
-	public void setListmodule(List<ListModule> listmodule) {
+	public void setListmodule(List<Module> listmodule) {
 		this.listmodule = listmodule;
 	}
 

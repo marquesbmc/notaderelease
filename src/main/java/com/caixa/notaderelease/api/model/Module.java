@@ -1,46 +1,33 @@
 package com.caixa.notaderelease.api.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
-@Table(name = "tbl_module")
+@Table(name = "tbl_listmodule")
 public class Module {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(name = "nome_modulo")
+	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name = "versao_modulo")
+	@Column(name = "versao")
 	private String versao;
 	
-	@JsonIgnore
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_releasenote")
-	private ReleaseNoteOld releaseNote;
+	@Column(name = "observacao")
+	private String observacao;
 	
-	public ReleaseNoteOld getReleaseNote() {
-		return releaseNote;
-	}
-
-	public void setReleaseNote(ReleaseNoteOld releaseNote) {
-		this.releaseNote = releaseNote;
-	}
+	@Column(name = "codigo_releasenotes")
+	private Long releasenotes;
 
 	public Long getCodigo() {
 		return codigo;
@@ -66,31 +53,21 @@ public class Module {
 		this.versao = versao;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Module other = (Module) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
-	
+	public Long getReleasenotes() {
+		return releasenotes;
+	}
+
+	public void setReleasenotes(Long releasenotes) {
+		this.releasenotes = releasenotes;
+	}
 
 }
+

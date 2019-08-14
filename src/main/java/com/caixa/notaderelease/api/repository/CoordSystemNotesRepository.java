@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.caixa.notaderelease.api.model.CoordSystemNotes;
-import com.caixa.notaderelease.api.model.Ticket;
 
 
 public interface CoordSystemNotesRepository extends JpaRepository<CoordSystemNotes, Long> {

@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.caixa.notaderelease.api.enums.ProfileEnum;
 import com.caixa.notaderelease.api.model.CoordSystemNotes;
-import com.caixa.notaderelease.api.model.ReleaseNotes;
+
 import com.caixa.notaderelease.api.model.Ticket;
 import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
 import com.caixa.notaderelease.api.service.CoordSystemNotesService;
-import com.caixa.notaderelease.api.service.ReleaseNotesService;
+
 import com.caixa.notaderelease.api.service.TicketService;
 import com.caixa.notaderelease.api.service.UserService;
 
@@ -38,11 +38,11 @@ public class estatistica {
 	@Autowired
 	private TicketService ticketService;
 
-	@Autowired
-	private ReleaseNotesService releaseNotesService;
+	//@Autowired
+	//private ReleaseNotesService releaseNotesService;
 
 	
-	private ReleaseNotes releaseNotes;
+	//private ReleaseNotes releaseNotes;
 	
 	@Autowired
 	private CoordSystemNotesService systemNotesService;
@@ -53,8 +53,8 @@ public class estatistica {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private HttpServletRequest request;
+	//@Autowired
+	//private HttpServletRequest request;
 	
 	@GetMapping()
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")

@@ -9,9 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Index;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.caixa.notaderelease.api.enums.ProfileEnum;

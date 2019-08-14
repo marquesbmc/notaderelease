@@ -1,14 +1,9 @@
 package com.caixa.notaderelease.api.resource;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,15 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caixa.notaderelease.api.model.StatusNotes;
-import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.enums.ProfileEnum;
 import com.caixa.notaderelease.api.model.CoordSystemNotes;
+import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
-import com.caixa.notaderelease.api.service.StatusNotesService;
-import com.caixa.notaderelease.api.service.UserService;
 import com.caixa.notaderelease.api.service.CoordSystemNotesService;
+import com.caixa.notaderelease.api.service.UserService;
 
 @RestController
 @RequestMapping("/api/coordsystemnotes")
