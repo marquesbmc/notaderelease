@@ -84,15 +84,26 @@ public class ReleaseNotes {
 	private String codTicket;
 	
 	@Transient
-	private String statusTicket;
+	private String statusticket;
 	
 	
+	@Transient
+	private String coordenacao;
+	
+	public String getCoordenacao() {
+		return coordenacao;
+	}
+
+	public void setCoordenacao(String coordenacao) {
+		this.coordenacao = coordenacao;
+	}
+
 	public String getStatusTicket() {
-		return statusTicket;
+		return statusticket;
 	}
 
 	public void setStatusTicket(String statusTicket) {
-		this.statusTicket = statusTicket;
+		this.statusticket = statusTicket;
 	}
 
 	

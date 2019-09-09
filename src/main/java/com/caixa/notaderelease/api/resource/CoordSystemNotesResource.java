@@ -23,6 +23,7 @@ import com.caixa.notaderelease.api.service.UserService;
 @RestController
 @RequestMapping("/api/coordsystemnotes")
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://pefug.arquitetura.caixa:4200")
 public class CoordSystemNotesResource {
 	
 	@Autowired

@@ -42,6 +42,7 @@ import com.caixa.notaderelease.api.service.UserService;
 @RestController
 @RequestMapping("/api/ticket")
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://pefug.arquitetura.caixa:4200")
 public class TicketResource {
 
 	@Autowired
@@ -240,15 +241,21 @@ public class TicketResource {
 			changeStatus.setTicket(ticketCurrent);
 
 			if (status.equals("Atribuído")) {
-				changeStatus.setInfo("<em>" + "Alterou o status para: " + status + "</em> <br /> <br />");
-
+				//changeStatus.setInfo("<em>" + "Alterou o status para: " + status + "</em> <br /> <br />");
+				
+				changeStatus.setInfo(ticket.getInfo());
 			} else {
-				changeStatus.setInfo("<em>" + "Alterou o status para: " + status + "</em> <br /> <br />"
-						+ ticket.getInfo().replaceAll("\n", "<br />"));
+				//changeStatus.setInfo("<em>" + "Alterou o status para: " + status + "</em> <br /> <br />"
+				//		+ ticket.getInfo().replaceAll("\n", "<br />"));
+				changeStatus.setInfo(ticket.getInfo());
 			}
 
 			if (status.equals("Aprovado") || status.equals("Reprovado")) {
 				ticketPersisted.setDataInstalacao(now);
+			}
+			
+			if (status.equals("Comentar")) {	
+				ticketPersisted.setStatus("Novo");
 			}
 
 			// ticketPersisted.setDescricao(ticket.getDescricao());
@@ -330,23 +337,20 @@ public class TicketResource {
 		return ResponseEntity.ok(response);
 	}
 
-	/*
-	 * @GetMapping(value = "/{page}/{count}")
-	 * 
-	 * @PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')") public
-	 * ResponseEntity<Response<Page<Ticket>>> findAll(HttpServletRequest
-	 * request, @PathVariable int page,
-	 * 
-	 * @PathVariable int count) {
-	 * 
-	 * Response<Page<Ticket>> response = new Response<Page<Ticket>>();
-	 * Page<Ticket> tickets = null; User userRequest = userFromRequest(request);
-	 * if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
-	 * tickets = ticketService.listTicket(page, count); } else if
-	 * (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) { tickets =
-	 * ticketService.findByCoordenacao(page, count,userRequest.getCoordenacao()
-	 * ); } response.setData(tickets); return ResponseEntity.ok(response); }
-	 */
+	
+	  @GetMapping(value = "/{page}/{count}")
+	  @PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')") public
+	  ResponseEntity<Response<Page<Ticket>>> listAll(HttpServletRequest
+	  request, @PathVariable int page, @PathVariable int count) {
+	  
+	  Response<Page<Ticket>> response = new Response<Page<Ticket>>();
+	  Page<Ticket> tickets = null; User userRequest = userFromRequest(request);
+	  if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
+	  tickets = ticketService.listTicket(page, count); } else if
+	  (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) { tickets =
+	  ticketService.findByCoordenacao(page, count,userRequest.getCoordenacao()
+	 ); } response.setData(tickets); return ResponseEntity.ok(response); }
+	 
 /*
 	@GetMapping
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
@@ -428,13 +432,14 @@ public class TicketResource {
 		if (datefim.isEmpty()) {Datefim = LocalDate.now();} else {Datefim = LocalDate.parse(datefim);}
 		if (codigonr.isEmpty()) {CodigoL = null;} else {CodigoL = Long.parseLong(codigonr);}
 		
-		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN) || Fonte !="" ) {
+		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN) ) {
 			tickets = null;		   
 			tickets = ListarParaTecnico(page, count,CodigoL, status, nomesistema,coordenacao, Dateini, Datefim);			
 		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {	
 			listarCoordenacoes(userRequest, systemNotes); 
 			tickets = null;
 		tickets = ListarParaCliente(page, count,CodigoL,status, nomesistema, coordenacao, Dateini, Datefim,systemNotes);}
+		
 		
 	
 		response.setData(tickets);

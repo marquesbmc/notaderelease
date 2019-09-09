@@ -41,6 +41,7 @@ import com.caixa.notaderelease.api.service.UserService;
 @RestController
 @RequestMapping("/api/releasenotes")
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://pefug.arquitetura.caixa:4200")
 public class ReleaseNotesResource {
 
 	@Autowired
@@ -77,12 +78,10 @@ public class ReleaseNotesResource {
 		      	systemNotes.add(coordsystemNotes.get(i).getNomeSystem());
 		     } 
 		 
-		
-			 
 	        releaseNotes =  releaseNotesService.findByNomeSistemaIn(page, count, systemNotes);
 		}
 		
-		buscarCodigoStatusTicket(releaseNotes);
+		buscarCodigoStatusTicket(releaseNotes, userRequest);
 		
 		response.setData(releaseNotes);
 		return ResponseEntity.ok(response);
@@ -103,9 +102,15 @@ public class ReleaseNotesResource {
 	public ResponseEntity<Response<ReleaseNotes>> findByCodigo(@PathVariable("codigo") Long codigo) {
 		Response<ReleaseNotes> response = new Response<ReleaseNotes>();
 		ReleaseNotes releaseNotes = releaseNotesService.findByCodigo(codigo);
-		if (releaseNotes == null) {
-			response.getErrors().add("Registro não encontrado com código:" + codigo);
-			return ResponseEntity.badRequest().body(response);
+		
+		
+		
+		Ticket ticket = new Ticket();
+		ticket = ticketService.findByNumeroNotaRelease(releaseNotes);
+		if (ticket != null){
+		releaseNotes.setCodTicket(ticket.getCodigo().toString());
+		releaseNotes.setStatusTicket(ticket.getStatus().toString());
+		releaseNotes.setCoordenacao(ticket.getCoordenacao().toString());
 		}
 		
 		response.setData(releaseNotes);
@@ -233,7 +238,7 @@ public class ReleaseNotesResource {
 			@PathVariable("versaoCodigoFonte") String versaoCodigoFonte,
 			@PathVariable("statusNr") String statusNr) {
 		
-	
+		User userRequest = userFromRequest(request);
 		LocalDate dateCreation = null;
 		long code = -1;
 		codigo  = codigo.equals("uninformed") ? null : codigo;
@@ -268,7 +273,7 @@ public class ReleaseNotesResource {
 				releaseNotes = releaseNotesService.findAll(page, count);
 			}
 		
-		buscarCodigoStatusTicket(releaseNotes);
+		buscarCodigoStatusTicket(releaseNotes, userRequest);
 		response.setData(releaseNotes);
 		return ResponseEntity.ok(response);
 
@@ -281,7 +286,7 @@ public class ReleaseNotesResource {
 				@RequestParam(name="codigo" ,required=false,defaultValue="") String codigo,
 				@RequestParam(name="page" ,required=false,defaultValue="0") Integer page,
 				@RequestParam(name="count",required=false,defaultValue="5") Integer count,
-				@RequestParam(name="nomeSistema",required=false, defaultValue="") String nomeSistema,
+				@RequestParam(name="nomesistema",required=false, defaultValue="") String nomesistema,
 				@RequestParam(name="status",required=false, defaultValue="") String status,
 				@RequestParam(name="versaocodigocompilado",required=false, defaultValue="") String versaocodigocompilado,
 				@RequestParam(name="versaocodigofonte" ,required=false, defaultValue="") String versaocodigofonte,
@@ -316,14 +321,14 @@ public class ReleaseNotesResource {
 		
 		
 		if (userRequest.getProfile().equals(ProfileEnum.ROLE_TECHNICIAN)) {
-			relesenotes = ListarParaTecnico(page, count, nomeSistema, status, versaocodigocompilado,versaocodigofonte, Dateini, Datefim, CodigoL);			
+			relesenotes = ListarParaTecnico(page, count, nomesistema, status, versaocodigocompilado,versaocodigofonte, Dateini, Datefim, CodigoL);			
 		} else if (userRequest.getProfile().equals(ProfileEnum.ROLE_CUSTOMER)) {	
 			listarCoordenacoes(userRequest, systemNotes); 
-			relesenotes = ListarParaCliente(page, count, nomeSistema, status, versaocodigocompilado, versaocodigofonte,Dateini, Datefim, CodigoL,
+			relesenotes = ListarParaCliente(page, count, nomesistema, status, versaocodigocompilado, versaocodigofonte,Dateini, Datefim, CodigoL,
 					systemNotes);
 		}
 		
-		buscarCodigoStatusTicket(relesenotes);
+		buscarCodigoStatusTicket(relesenotes, userRequest);
 		response.setData(relesenotes);
 		return ResponseEntity.ok(response);
 	}
@@ -362,10 +367,19 @@ public class ReleaseNotesResource {
 		return relesenotes;
 	}
 	
-	private void buscarCodigoStatusTicket(Page<ReleaseNotes> releaseNotes) {
+	private void buscarCodigoStatusTicket(Page<ReleaseNotes> releaseNotes, User userRequest) {
+		
 		releaseNotes.forEach(rn -> 
 
-		rn.setCodTicket(ticketService.findByNumeroNotaRelease(rn) != null ? String.valueOf(ticketService.findByNumeroNotaRelease(rn).getCodigo()) : "")	);
+		rn.setCoordenacao(userRequest.getCoordenacao())	);
+		
+		
+		releaseNotes.forEach(rn -> 
+
+		rn.setCodTicket(ticketService.findByNumeroNotaRelease(rn) != null ? String.valueOf(ticketService.findByNumeroNotaRelease(rn).getCodigo()) : "")	
+		
+				
+				);
 		
 		releaseNotes.forEach(rn -> 
 		

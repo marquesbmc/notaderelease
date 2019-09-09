@@ -24,6 +24,7 @@ import com.caixa.notaderelease.api.service.UserService;
 
 
 @RestController
+//@CrossOrigin(origins = "http://pefug.arquitetura.caixa:4200")
 @CrossOrigin(origins = "*")
 public class AuthenticationRestController {
 

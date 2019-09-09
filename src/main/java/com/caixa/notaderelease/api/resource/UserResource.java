@@ -27,6 +27,7 @@ import com.caixa.notaderelease.api.service.UserService;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://pefug.arquitetura.caixa:4200")
 public class UserResource {
 	
 	@Autowired

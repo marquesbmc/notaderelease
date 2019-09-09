@@ -21,6 +21,7 @@ import com.caixa.notaderelease.api.service.StatusNotesService;
 @RestController
 @RequestMapping("/api/statusnotes")
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://pefug.arquitetura.caixa:4200")
 public class StatusNotesResource {
 	
 	

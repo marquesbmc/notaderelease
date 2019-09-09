@@ -14,6 +14,8 @@ import com.caixa.notaderelease.api.model.Ticket;
 public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	
 	
+	Page<Ticket> findAll(Pageable pages);
+	
 	
 	//nao esta sendo utilizada - trocando pela debaixo como teste
 	Page<Ticket> findByUserCodigoOrderByDataAberturaDesc(Pageable pages,Long userCodigo);
@@ -45,7 +47,6 @@ public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	
 	void delete(Long codigo);
 	
-
 	//Listar Ticket - Cliente
 	Page<Ticket> findByStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenAndNumeroNotaReleaseNomeSistemaInOrderByDataAberturaDesc(String status, String sistema,String coordenacao,LocalDate dateini,LocalDate datefim,List<String> listsistema,Pageable pages);
 	Page<Ticket> findByNumeroNotaReleaseCodigoAndStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenAndNumeroNotaReleaseNomeSistemaInOrderByDataAberturaDesc(Long codigo,String status, String sistema,String coordenacao,LocalDate dateini,LocalDate datefim,List<String> listsistema,Pageable pages);					
@@ -54,6 +55,8 @@ public interface TicketRepository  extends JpaRepository<Ticket, Long>{
 	Page<Ticket> findByStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenOrderByDataAberturaDesc(String status, String sistema,String coordenacao, LocalDate dateini,LocalDate datefim,Pageable pages);
 	//Page<Ticket> findByStatusContainingIgnoreCaseAndAssignedUserMatriculaContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenOrderByDataAberturaDesc(String status,String assignedusermatricula, String sistema,String coordenacao, LocalDate dateini,LocalDate datefim,Pageable pages);
 	Page<Ticket> findByNumeroNotaReleaseCodigoAndStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenOrderByDataAberturaDesc(Long codigo,String status, String sistema,String coordenacao, LocalDate dateini,LocalDate datefim,Pageable pages);					
-		
+	
+	
+	
 
 }

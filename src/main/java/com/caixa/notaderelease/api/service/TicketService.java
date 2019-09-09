@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.caixa.notaderelease.api.model.ChangeStatus;
@@ -13,8 +15,9 @@ import com.caixa.notaderelease.api.model.Ticket;
 @Component
 public interface TicketService {
 	
-	//@PutMapping(value = "/{codigo}/{status}")
-	//@PostMapping()
+	
+	
+	
 	Ticket createOrUpdate(Ticket ticket);
 	
 	
@@ -43,6 +46,9 @@ public interface TicketService {
 	Iterable<ChangeStatus> listChangeStatus(Long codigo);
 	
 	
+	public Page<Ticket> findAllPages(int page, int count);
+	
+	
 	//@GetMapping(value = "/{page}/{count}")
 	//@GetMapping(value = "/summary")
 	Iterable<Ticket> findAll();
@@ -58,6 +64,9 @@ public interface TicketService {
 	
 	Long countByNumeroNotaRelease(ReleaseNotes numeroNotaRelease);
 	
+	
+	Long count();
+	
 	Ticket findByNumeroNotaRelease(ReleaseNotes numeroNotaRelease);
 	
 	
@@ -68,5 +77,7 @@ public interface TicketService {
 	
 	Page<Ticket> findByParamUserTecnico(int page, int count,String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim);
 	Page<Ticket> findByParamUserTecnicoCodigo(int page, int count,Long codigo, String status,String sistema, String coordenacao, LocalDate dateini,LocalDate datefim);
+	
+	
 
 }

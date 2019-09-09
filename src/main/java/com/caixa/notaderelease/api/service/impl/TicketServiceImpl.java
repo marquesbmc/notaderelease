@@ -55,7 +55,7 @@ public class TicketServiceImpl implements TicketService{
 
 	@Override
 	public Iterable<ChangeStatus> listChangeStatus(Long codigo) {
-		return this.changeStatusRepository.findByTicketCodigoOrderByDateChangeStatusDesc(codigo);
+		return this.changeStatusRepository.findByTicketCodigoOrderByDateChangeStatusAsc(codigo);
 		//return this.changeStatusRepository.findByTicketCodigoOrderByDateChangeStatusDesc(ticketCodigo);
 		//return this.changeStatusRepository.findByChangesStatusCodigoOrderByDateTicketCodigo(ticketCodigo);
 	//return null;
@@ -90,6 +90,13 @@ public class TicketServiceImpl implements TicketService{
 	public Iterable<Ticket> findAll() {
 		return this.ticketRepository.findAll();
 	}
+	
+	@Override
+	public Page<Ticket> findAllPages(int page, int count) {
+		Pageable pages = new PageRequest(page,count);
+		return this.ticketRepository.findAll(pages);
+	}
+	
 
 	@Override
 	public Page<Ticket> findByNumeroNotaReleaseAndStatusAndUsuarioTecnicoAtribuido(int page, int count, String numeroNotaRelease, String status,
@@ -115,6 +122,15 @@ public class TicketServiceImpl implements TicketService{
 		
 
 	};
+	
+	@Override
+	public Long count(){
+		return this.ticketRepository.count();
+		
+
+	};
+	
+	
 	
 	@Override
 	public Ticket findByNumeroNotaRelease(ReleaseNotes numeroNotaRelease){
@@ -147,5 +163,7 @@ public class TicketServiceImpl implements TicketService{
 		Pageable pages = new PageRequest(page,count, Sort.Direction.DESC,"codigo");
 		return this.ticketRepository.findByNumeroNotaReleaseCodigoAndStatusContainingIgnoreCaseAndNumeroNotaReleaseNomeSistemaContainingIgnoreCaseAndCoordenacaoContainingIgnoreCaseAndDataAberturaBetweenOrderByDataAberturaDesc(codigo,status,  sistema, coordenacao,  dateini, datefim, pages);					 
 	};
+	
+	
 	
 }

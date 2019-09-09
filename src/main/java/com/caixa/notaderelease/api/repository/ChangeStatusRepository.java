@@ -11,6 +11,8 @@ public interface ChangeStatusRepository extends JpaRepository<ChangeStatus, Long
 	
 
 	
-			Iterable<ChangeStatus> findByTicketCodigoOrderByDateChangeStatusDesc(Long codigo);
+			Iterable<ChangeStatus> findByTicketCodigoOrderByDateChangeStatusAsc(Long codigo);
+			
+			ChangeStatus findByTicketCodigoAndStatus(Long codigoticket, String status);
 
 }

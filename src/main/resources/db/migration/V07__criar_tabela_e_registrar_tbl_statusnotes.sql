@@ -6,11 +6,11 @@ CREATE TABLE tbl_statusnotes (
 
 INSERT INTO  notadereleaseapi.tbl_statusnotes(nm_statusnotes) 
 values
-('Gerado');
+('Submeter');
 
 INSERT INTO  notadereleaseapi.tbl_statusnotes(nm_statusnotes) 
 values
-('Vinculado');
+('Atribuído');
 
 INSERT INTO  notadereleaseapi.tbl_statusnotes(nm_statusnotes) 
 values
@@ -22,6 +22,6 @@ values
 
 INSERT INTO  notadereleaseapi.tbl_statusnotes(nm_statusnotes) 
 values
-('Cancelado');
+('Inconforme');
 
 
