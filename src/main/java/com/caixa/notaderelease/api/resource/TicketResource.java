@@ -222,6 +222,7 @@ public class TicketResource {
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 				return ResponseEntity.badRequest().body(response);
 			}
+			
 			Ticket ticketCurrent = ticketService.findByCodigo(codigo);
 			ticketCurrent.setStatus(status);
 			if (status.equals("Atribuído")) {
@@ -234,19 +235,14 @@ public class TicketResource {
 			changeStatus.setUserChange(userFromRequest(request).getNome());
 
 			LocalDateTime now = LocalDateTime.now();
-			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
 			changeStatus.setDateChangeStatus(now);
 			changeStatus.setStatus(status);
 			changeStatus.setTicket(ticketCurrent);
 
 			if (status.equals("Atribuído")) {
-				//changeStatus.setInfo("<em>" + "Alterou o status para: " + status + "</em> <br /> <br />");
-				
 				changeStatus.setInfo(ticket.getInfo());
 			} else {
-				//changeStatus.setInfo("<em>" + "Alterou o status para: " + status + "</em> <br /> <br />"
-				//		+ ticket.getInfo().replaceAll("\n", "<br />"));
+				
 				changeStatus.setInfo(ticket.getInfo());
 			}
 
@@ -256,10 +252,28 @@ public class TicketResource {
 			
 			if (status.equals("Comentar")) {	
 				ticketPersisted.setStatus("Novo");
+				ticketCurrent.setAssignedUser(null);
 			}
 
 			// ticketPersisted.setDescricao(ticket.getDescricao());
 			ticketService.createChangeStatus(changeStatus);
+			
+			
+			List<ChangeStatus> changes = new ArrayList<ChangeStatus>();
+			Iterable<ChangeStatus> changesCurrent = ticketService.listChangeStatus(ticketPersisted.getCodigo());
+			for (Iterator<ChangeStatus> iterator = changesCurrent.iterator(); iterator.hasNext();) {
+				ChangeStatus changeStatuss = iterator.next();
+				changeStatuss.setTicket(null);
+				changes.add(changeStatuss);
+			}
+			ticketPersisted.setChanges(changes);
+			
+			
+			
+			
+				
+			//Ticket ticketCurrent = ticketService.findByCodigo(codigo);
+			ticketPersisted = ticketService.findByCodigo(ticketPersisted.getCodigo());
 			response.setData(ticketPersisted);
 		} catch (Exception e) {
 			response.getErrors().add(e.getMessage());
