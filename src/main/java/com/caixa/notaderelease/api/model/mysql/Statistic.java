@@ -1,4 +1,4 @@
-package com.caixa.notaderelease.api.model;
+package com.caixa.notaderelease.api.model.mysql;
 
 public class Statistic {
 	

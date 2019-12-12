@@ -3,8 +3,7 @@ package com.caixa.notaderelease.api.service;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-
-import com.caixa.notaderelease.api.model.StatusNotes;
+import com.caixa.notaderelease.api.model.mysql.StatusNotes;
 
 @Component
 public interface StatusNotesService {

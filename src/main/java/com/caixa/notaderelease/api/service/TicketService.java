@@ -8,9 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.ChangeStatus;
-import com.caixa.notaderelease.api.model.ReleaseNotes;
-import com.caixa.notaderelease.api.model.Ticket;
+import com.caixa.notaderelease.api.model.mysql.ChangeStatus;
+import com.caixa.notaderelease.api.model.mysql.ReleaseNotes;
+import com.caixa.notaderelease.api.model.mysql.Ticket;
 
 @Component
 public interface TicketService {

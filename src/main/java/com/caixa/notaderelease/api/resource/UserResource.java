@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.caixa.notaderelease.api.model.mysql.User;
 import com.caixa.notaderelease.api.response.Response;
-import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.service.UserService;
 
 @RestController

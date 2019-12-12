@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.caixa.notaderelease.api.model.User;
+import com.caixa.notaderelease.api.model.mysql.User;
 import com.caixa.notaderelease.api.security.jwt.JwtUserFactory;
 import com.caixa.notaderelease.api.service.UserService;
 

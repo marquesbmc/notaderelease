@@ -1,4 +1,4 @@
-package com.caixa.notaderelease.api.model;
+package com.caixa.notaderelease.api.model.mysql;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -6,8 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.StatusNotes;
-import com.caixa.notaderelease.api.repository.StatusNotesRepository;
+import com.caixa.notaderelease.api.model.mysql.StatusNotes;
+import com.caixa.notaderelease.api.repository.mysql.StatusNotesRepository;
 import com.caixa.notaderelease.api.service.StatusNotesService;
 
 @Component

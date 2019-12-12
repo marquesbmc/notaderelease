@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caixa.notaderelease.api.model.User;
+import com.caixa.notaderelease.api.model.mysql.User;
 import com.caixa.notaderelease.api.security.jwt.JwtAuthenticationRequest;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
 import com.caixa.notaderelease.api.security.model.CurrentUser;

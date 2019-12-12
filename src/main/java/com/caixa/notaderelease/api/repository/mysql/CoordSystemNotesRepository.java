@@ -1,4 +1,4 @@
-package com.caixa.notaderelease.api.repository;
+package com.caixa.notaderelease.api.repository.mysql;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.caixa.notaderelease.api.model.CoordSystemNotes;
+import com.caixa.notaderelease.api.model.mysql.CoordSystemNotes;
 
 
 public interface CoordSystemNotesRepository extends JpaRepository<CoordSystemNotes, Long> {

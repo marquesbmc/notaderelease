@@ -1,4 +1,4 @@
-package com.caixa.notaderelease.api.model;
+package com.caixa.notaderelease.api.model.mysql;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +26,10 @@ public class Database {
 	
 	@Column(name = "nm_acessobd")
 	private String acessoBanco;
-
+	
+	@Column(name = "nm_configbd")
+	private String configBanco;
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -65,6 +68,14 @@ public class Database {
 
 	public void setAcessoBanco(String acessoBanco) {
 		this.acessoBanco = acessoBanco;
+	}
+
+	public String getConfigBanco() {
+		return configBanco;
+	}
+
+	public void setConfigBanco(String configBanco) {
+		this.configBanco = configBanco;
 	}
 
 }

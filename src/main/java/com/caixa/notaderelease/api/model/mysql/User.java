@@ -1,4 +1,4 @@
-package com.caixa.notaderelease.api.model;
+package com.caixa.notaderelease.api.model.mysql;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

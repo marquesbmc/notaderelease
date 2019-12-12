@@ -1,6 +1,6 @@
 package  com.caixa.notaderelease.api.security.model;
 
-import  com.caixa.notaderelease.api.model.User;
+import com.caixa.notaderelease.api.model.mysql.User;
 
 public class CurrentUser {
 	

@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caixa.notaderelease.api.model.ChangeStatus;
-import com.caixa.notaderelease.api.model.ReleaseNotes;
-import com.caixa.notaderelease.api.model.Statistic;
-import com.caixa.notaderelease.api.model.Ticket;
-import com.caixa.notaderelease.api.model.User;
+import com.caixa.notaderelease.api.model.mysql.ChangeStatus;
+import com.caixa.notaderelease.api.model.mysql.ReleaseNotes;
+import com.caixa.notaderelease.api.model.mysql.Statistic;
+import com.caixa.notaderelease.api.model.mysql.Ticket;
+import com.caixa.notaderelease.api.model.mysql.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
 import com.caixa.notaderelease.api.service.CoordSystemNotesService;
@@ -128,7 +128,7 @@ public class StatisticsResource {
 		
 		// total de tickets atrasados
 		int contAtrasados = 0;
-		tickets =  ticketService.findAllPages(0, (int)tickets.getTotalElements());
+		tickets =  ticketService.findAllPages(0, 5);
 				
 	
 		

@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.caixa.notaderelease.api.enums.ProfileEnum;
-import com.caixa.notaderelease.api.model.User;
+import com.caixa.notaderelease.api.model.mysql.User;
 
 
 

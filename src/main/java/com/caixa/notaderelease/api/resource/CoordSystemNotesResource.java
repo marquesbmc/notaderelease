@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.caixa.notaderelease.api.enums.ProfileEnum;
-import com.caixa.notaderelease.api.model.CoordSystemNotes;
-import com.caixa.notaderelease.api.model.User;
+import com.caixa.notaderelease.api.model.mysql.CoordSystemNotes;
+import com.caixa.notaderelease.api.model.mysql.User;
 import com.caixa.notaderelease.api.response.Response;
 import com.caixa.notaderelease.api.security.jwt.JwtTokenUtil;
 import com.caixa.notaderelease.api.service.CoordSystemNotesService;

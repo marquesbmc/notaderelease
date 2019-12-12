@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: releasenote-api
 Implementation-Version: 0.0.1-Teste
-Built-By: belive
+Built-By: c086948
 Implementation-Vendor-Id: com.caixa.notaderelease-api
-Build-Jdk: 1.8.0_222
+Build-Jdk: 1.8.0_231
 Implementation-URL: http://projects.spring.io/spring-boot/notadereleas
  e-api/
 Created-By: Maven Integration for Eclipse

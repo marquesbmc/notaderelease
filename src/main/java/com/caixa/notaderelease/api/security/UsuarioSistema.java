@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.caixa.notaderelease.api.model.Usuario;
+import com.caixa.notaderelease.api.model.mysql.Usuario;
 
 public class UsuarioSistema extends User {
 

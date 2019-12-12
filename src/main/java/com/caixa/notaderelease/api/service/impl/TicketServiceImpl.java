@@ -10,11 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.ChangeStatus;
-import com.caixa.notaderelease.api.model.ReleaseNotes;
-import com.caixa.notaderelease.api.model.Ticket;
-import com.caixa.notaderelease.api.repository.ChangeStatusRepository;
-import com.caixa.notaderelease.api.repository.TicketRepository;
+import com.caixa.notaderelease.api.model.mysql.ChangeStatus;
+import com.caixa.notaderelease.api.model.mysql.ReleaseNotes;
+import com.caixa.notaderelease.api.model.mysql.Ticket;
+import com.caixa.notaderelease.api.repository.mysql.ChangeStatusRepository;
+import com.caixa.notaderelease.api.repository.mysql.TicketRepository;
 import com.caixa.notaderelease.api.service.TicketService;
 
 @Component

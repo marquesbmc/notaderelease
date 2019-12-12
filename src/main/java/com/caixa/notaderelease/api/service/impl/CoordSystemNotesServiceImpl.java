@@ -8,8 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.CoordSystemNotes;
-import com.caixa.notaderelease.api.repository.CoordSystemNotesRepository;
+import com.caixa.notaderelease.api.model.mysql.CoordSystemNotes;
+import com.caixa.notaderelease.api.repository.mysql.CoordSystemNotesRepository;
 import com.caixa.notaderelease.api.service.CoordSystemNotesService;
 
 @Component

@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-
-import com.caixa.notaderelease.api.model.CoordSystemNotes;
+import com.caixa.notaderelease.api.model.mysql.CoordSystemNotes;
 
 @Component
 public interface CoordSystemNotesService {

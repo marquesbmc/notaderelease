@@ -54,11 +54,25 @@
     	     <scope>runtime</scope>
 		</dependency>
 		
-		<!-- Migracoes - Flyway -->
+		<!-- db2
+		<dependency>
+		  <groupId>com.ibm</groupId>
+ 		  <artifactId>db2</artifactId>
+  		  <version>11.1</version>
+		</dependency> -->
+		
+		<!-- conectar com multiplos DataSources -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-cloud-connectors</artifactId>
+		</dependency>
+		
+		
+		<!-- Migracoes - Flyway 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-		</dependency>
+		</dependency>-->
 		
 		<!-- Hibernate Java 8 Support -->
 		<dependency>
@@ -118,6 +132,32 @@
 			<artifactId>scala-library</artifactId>
 			<version>2.11.0</version>
 		</dependency>
+		
+		
+		<dependency>
+		  <groupId>com.ibm</groupId>
+		  <artifactId>db2</artifactId>
+		  <version>9.2</version>
+	
+		</dependency>
+		
+		<dependency>
+		  <groupId>com.ibm</groupId>
+		  <artifactId>db2-license-cisuz</artifactId>
+		  <version>9.2</version>
+	
+		</dependency>
+		
+		<dependency>
+		  <groupId>com.ibm</groupId>
+		  <artifactId>db2-license-cu</artifactId>
+		  <version>9.2</version>
+		</dependency>
+		
+		
+		
+		
+		
 	</dependencies>
 	
 	

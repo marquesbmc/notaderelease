@@ -11,8 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.ReleaseNotes;
-import com.caixa.notaderelease.api.repository.ReleaseNotesRepository;
+import com.caixa.notaderelease.api.model.mysql.ReleaseNotes;
+import com.caixa.notaderelease.api.repository.mysql.ReleaseNotesRepository;
 import com.caixa.notaderelease.api.service.ReleaseNotesService;
 
 

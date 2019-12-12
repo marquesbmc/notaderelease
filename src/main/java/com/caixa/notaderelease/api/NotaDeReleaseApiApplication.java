@@ -8,9 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.caixa.notaderelease.api.repository.UserRepository;
-import com.caixa.notaderelease.api.model.User;
 import com.caixa.notaderelease.api.enums.ProfileEnum;
+import com.caixa.notaderelease.api.model.mysql.User;
+import com.caixa.notaderelease.api.repository.mysql.UserRepository;
 
 //import com.caixa.notaderelease.api.config.property.NotaDeReleaseApiProperty;
 
@@ -22,14 +22,11 @@ public class NotaDeReleaseApiApplication {
 	}
 	
 	
-
-	
 	@Bean
     CommandLineRunner init(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             initUsers(userRepository, passwordEncoder);
         };
-
     }
     
 	private void initUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {

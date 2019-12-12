@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import com.caixa.notaderelease.api.model.ReleaseNotes;
+import com.caixa.notaderelease.api.model.mysql.ReleaseNotes;
 
 
 

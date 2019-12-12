@@ -1,4 +1,4 @@
-package com.caixa.notaderelease.api.repository;
+package com.caixa.notaderelease.api.repository.mysql;
 
 
 import java.time.LocalDate;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.caixa.notaderelease.api.model.ReleaseNotes;
+import com.caixa.notaderelease.api.model.mysql.ReleaseNotes;
 
 
 
