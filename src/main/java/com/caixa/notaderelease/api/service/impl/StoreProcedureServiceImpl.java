@@ -15,6 +15,6 @@ public class StoreProcedureServiceImpl  implements StoreProcedureService
 {
 	  @Autowired
 	  private StoreProcedureRepository storeProcedureRepository;
-	  
+	  //dadsaa
 	  public List<String> buscarSP() { return this.storeProcedureRepository.consultaSP(); }
 	}
