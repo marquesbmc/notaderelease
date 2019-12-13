@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.caixa.notaderelease.api.enums.ProfileEnum;
+import com.caixa.notaderelease.api.model.db2.StoreProcedure;
 import com.caixa.notaderelease.api.model.mysql.CoordSystemNotes;
 import com.caixa.notaderelease.api.model.mysql.ReleaseNotes;
 import com.caixa.notaderelease.api.model.mysql.Ticket;
@@ -59,10 +60,10 @@ public class ReleaseNotesResource {
 	@Autowired
 	TicketService ticketService;
 
-	//@Autowired
-	//private StoreProcedureService storeProcedureService;
+	@Autowired
+	private StoreProcedureService storeProcedureService;
 	
-	/*@PostMapping(value = "/validasp")
+	@PostMapping(value = "/validasp")
 	public ResponseEntity<Response<StoreProcedure>> create(@RequestBody StoreProcedure storeProcedure,
 			BindingResult result) {
 		Response<StoreProcedure> response = new Response<StoreProcedure>();
@@ -85,9 +86,9 @@ public class ReleaseNotesResource {
 		}
 
 		return ResponseEntity.ok(response);
-	}*/
+	}
 
-	/*private String ValidarSP(StoreProcedure storeProcedure) {
+	private String ValidarSP(StoreProcedure storeProcedure) {
 		String result = null;
 		List<String> spListdivergente = new ArrayList<String>();
 		List<String> spListIguais = new ArrayList<String>();
@@ -128,15 +129,15 @@ public class ReleaseNotesResource {
 		// }
 
 		return result;
-	}*/
+	}
 
-	/*private void validateCreateStoreProcedure(StoreProcedure storeProcedure, BindingResult result) {
+	private void validateCreateStoreProcedure(StoreProcedure storeProcedure, BindingResult result) {
 		if (storeProcedure.getCodigo() == '1') {
 			result.addError(new ObjectError("Stored procedure(s) nok", "Favor informar"));
 			return;
 		}
 
-	}*/
+	}
 
 	@GetMapping(value = "/{page}/{count}")
 	@PreAuthorize("hasAnyRole('CUSTOMER','TECHNICIAN')")
